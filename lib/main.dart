@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:malugos_project/pages/drawer_page/configurationpage.dart';
+import 'package:malugos_project/pages/drawer_page/profilepage.dart';
 import 'package:malugos_project/pages/homepage.dart';
 
 void main() {
@@ -15,6 +17,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.lightGreen,
       ),
+      routes: {
+        '/homepage': (context) => const HomePage(),
+        '/configurationpage': (context) => const ConfigurationPage(),
+        '/profilepage': (context) => const ProfilePage(),
+      },
       home: const MyHomePage(),
     );
   }

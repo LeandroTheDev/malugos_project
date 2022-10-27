@@ -11,6 +11,7 @@ class AppDrawer extends StatelessWidget {
       width: screenSize.width * 0.50,
       child: Column(
         children: [
+          //Main text
           Container(
             color: Colors.lightGreen,
             width: double.infinity,
@@ -22,6 +23,46 @@ class AppDrawer extends StatelessWidget {
                 const SizedBox(width: 10),
                 Text('Olá $usuario'),
               ],
+            ),
+          ),
+          const SizedBox(height: 10),
+          //Profile button
+          SizedBox(
+            height: 30,
+            width: screenSize.width * 0.50,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
+              onPressed: () {
+                Navigator.of(context).pushNamed('/profilepage');
+              },
+              child: Row(
+                children: const [
+                  SizedBox(width: 5),
+                  Icon(Icons.person),
+                  SizedBox(width: 5),
+                  Text("Perfil"),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
+          //Configuration button
+          SizedBox(
+            height: 30,
+            width: screenSize.width * 0.50,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
+              onPressed: () {
+                Navigator.of(context).pushNamed('/configurationpage');
+              },
+              child: Row(
+                children: const [
+                  SizedBox(width: 5),
+                  Icon(Icons.settings),
+                  SizedBox(width: 5),
+                  Text("Configurações"),
+                ],
+              ),
             ),
           ),
         ],

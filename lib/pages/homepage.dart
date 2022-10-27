@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:malugos_project/components/drawer.dart';
+import 'package:malugos_project/components/productitem.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -17,7 +18,14 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-      body: Column(),
+      body: SingleChildScrollView(
+        child: Column(
+          children: const [
+            SizedBox(height: 10),
+            ProductItem(),
+          ],
+        ),
+      ),
     );
   }
 }
