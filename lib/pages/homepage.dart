@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:malugos_project/components/drawer.dart';
 import 'package:malugos_project/components/productitem.dart';
+import 'package:malugos_project/data/productsdata.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -18,13 +19,15 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: const [
-            SizedBox(height: 10),
-            ProductItem(),
-          ],
-        ),
+      body: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: dummyproducts.length,
+        itemBuilder: (context, i) {
+          return ProductItem(
+            dummyproducts[i].name,
+            dummyproducts[i].price,
+          );
+        },
       ),
     );
   }
