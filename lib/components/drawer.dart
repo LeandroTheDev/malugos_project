@@ -13,7 +13,7 @@ class AppDrawer extends StatelessWidget {
         children: [
           //Main text
           Container(
-            color: Colors.lightGreen,
+            color: Theme.of(context).primaryColor,
             width: double.infinity,
             height: screenSize.height * 0.10,
             child: Row(

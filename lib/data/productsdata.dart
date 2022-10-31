@@ -31,7 +31,7 @@ final dummyproducts = [
         'uma cadeira gamer descrição descrição descrição descrição descrição',
     price: 201.10,
     imageURL:
-        'https://www.malugos.com.br/images/virtuemart/product/Prancheta%204.png',
+        'https://www.malugos.com.br/images/virtuemart/product/Teclado-Mec-nico-Gamer-Redragon-Dark-Avenger-RGB-Switch-Red-PT-Com-Fio-K568-2_1639503116_gg.jpg',
   ),
   Product(
     name: 'Mouse Gamer',
@@ -39,22 +39,14 @@ final dummyproducts = [
         'uma cadeira gamer descrição descrição descrição descrição descrição',
     price: 212.32,
     imageURL:
-        'https://www.malugos.com.br/images/virtuemart/product/Prancheta%204.png',
+        'https://www.malugos.com.br/images/virtuemart/product/mouse-gamer-redragon-cobra-rgb-7-botoes-10000dpi-lunar-white-m711w_1600284702_gg.jpg',
   ),
   Product(
-    name: 'MousePad RGB',
+    name: 'MousePad Gamer',
     description:
         'uma cadeira gamer descrição descrição descrição descrição descrição',
     price: 103.15,
     imageURL:
-        'https://www.malugos.com.br/images/virtuemart/product/Prancheta%204.png',
-  ),
-  Product(
-    name: 'Head Set Razer Gamer',
-    description:
-        'uma cadeira gamer descrição descrição descrição descrição descrição',
-    price: 431.53,
-    imageURL:
-        'https://www.malugos.com.br/images/virtuemart/product/Prancheta%204.png',
+        'https://www.malugos.com.br/images/virtuemart/product/92982_index_gg.jpg',
   ),
 ];

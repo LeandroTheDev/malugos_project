@@ -15,8 +15,8 @@ class ProductItem extends StatelessWidget {
         children: [
           //Product Image
           SizedBox(
-            height: 120,
-            width: 120,
+            height: 160,
+            width: 160,
             child: Image.network(imageUrl),
           ),
           //Product Name
@@ -24,6 +24,9 @@ class ProductItem extends StatelessWidget {
             name,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
           ),
           //Product Cost
           Text('${price.toString()} Reais'),

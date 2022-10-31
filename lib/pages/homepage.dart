@@ -22,11 +22,11 @@ class HomePage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          const SizedBox(height: 20),
+          const SizedBox(height: 30),
 
           //"Destaques"
           Container(
-            width: screenSize.width * 0.3,
+            width: screenSize.width * 0.4,
             height: 40,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
@@ -42,28 +42,33 @@ class HomePage extends StatelessWidget {
                 SizedBox(width: 5),
                 Text(
                   'Destaques',
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: Colors.lightGreen,
                     fontWeight: FontWeight.bold,
+                    fontSize: 13,
                   ),
                 ),
                 Spacer(),
               ],
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 30),
           //"Destaque" Products
           SizedBox(
             width: screenSize.width,
-            height: 160,
+            height: 200,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: dummyproducts.length,
               itemBuilder: (context, i) {
-                return ProductItem(
-                  dummyproducts[i].name,
-                  dummyproducts[i].price,
-                  dummyproducts[i].imageURL,
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: ProductItem(
+                    dummyproducts[i].name,
+                    dummyproducts[i].price,
+                    dummyproducts[i].imageURL,
+                  ),
                 );
               },
             ),
