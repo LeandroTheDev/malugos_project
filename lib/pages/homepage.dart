@@ -23,34 +23,38 @@ class HomePage extends StatelessWidget {
       body: Column(
         children: [
           const SizedBox(height: 30),
-
           //"Destaques"
-          Container(
-            width: screenSize.width * 0.4,
-            height: 40,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.black,
-            ),
-            child: Row(
-              children: const [
-                Spacer(),
-                Icon(
-                  Icons.shopping_cart,
-                  color: Colors.lightGreen,
-                ),
-                SizedBox(width: 5),
-                Text(
-                  'Destaques',
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
+          TextButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/featurepage');
+            },
+            child: Container(
+              width: screenSize.width * 0.4,
+              height: 40,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.black,
+              ),
+              child: Row(
+                children: const [
+                  Spacer(),
+                  Icon(
+                    Icons.shopping_cart,
                     color: Colors.lightGreen,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
                   ),
-                ),
-                Spacer(),
-              ],
+                  SizedBox(width: 5),
+                  Text(
+                    'Destaques',
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: Colors.lightGreen,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                    ),
+                  ),
+                  Spacer(),
+                ],
+              ),
             ),
           ),
           const SizedBox(height: 30),

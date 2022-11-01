@@ -26,6 +26,26 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10),
+          //Category button
+          SizedBox(
+            height: 30,
+            width: screenSize.width * 0.50,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
+              onPressed: () {
+                Navigator.of(context).pushNamed('/categorypage');
+              },
+              child: Row(
+                children: const [
+                  SizedBox(width: 5),
+                  Icon(Icons.category),
+                  SizedBox(width: 5),
+                  Text("Categorias"),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
           //Profile button
           SizedBox(
             height: 30,
