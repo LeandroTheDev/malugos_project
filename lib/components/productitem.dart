@@ -26,10 +26,16 @@ class ProductItem extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
               fontWeight: FontWeight.bold,
+              color: Colors.black,
             ),
           ),
           //Product Cost
-          Text('${price.toString()} Reais'),
+          Text(
+            '${price.toString()} Reais',
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
         ],
       ),
     );

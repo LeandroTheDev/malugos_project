@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:malugos_project/pages/authpage.dart';
 import 'package:malugos_project/pages/drawer_page/categorypage.dart';
 import 'package:malugos_project/pages/drawer_page/configurationpage.dart';
 import 'package:malugos_project/pages/drawer_page/profilepage.dart';
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.lightGreen,
       ),
       routes: {
+        '/authpage': (context) => const AuthPage(),
         '/homepage': (context) => const HomePage(),
         '/categorypage': (context) => const CategoryPage(),
         '/configurationpage': (context) => const ConfigurationPage(),
@@ -36,6 +38,6 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return HomePage();
+    return AuthPage();
   }
 }

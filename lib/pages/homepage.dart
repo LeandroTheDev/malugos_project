@@ -2,9 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:malugos_project/components/drawer.dart';
 import 'package:malugos_project/components/productitem.dart';
 import 'package:malugos_project/data/productsdata.dart';
+import 'package:malugos_project/pages/featurepage.dart';
+import 'dart:async';
+import 'package:mysql1/mysql1.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
@@ -61,13 +70,24 @@ class HomePage extends StatelessWidget {
           //"Destaque" Products
           SizedBox(
             width: screenSize.width,
-            height: 200,
+            height: 210,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: dummyproducts.length,
               itemBuilder: (context, i) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                return TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => FeatureProducts(
+                                name: dummyproducts[i].name,
+                                description: dummyproducts[i].description,
+                                price: dummyproducts[i].price,
+                                imageURL: dummyproducts[i].imageURL,
+                              )),
+                    );
+                  },
                   child: ProductItem(
                     dummyproducts[i].name,
                     dummyproducts[i].price,

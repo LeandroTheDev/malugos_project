@@ -20,7 +20,7 @@ final dummyproducts = [
     nameFull:
         'COMPUTADOR MALUGOS GAMING , INTEL CORE I5-12400, NVIDIA GEFORCE GTX1660 6GB, 8GB DDR4, SSD 240GB',
     description:
-        'uma cadeira gamer descrição descrição descrição descrição descrição',
+        'Computador gamer da malugos',
     price: 812.24,
     imageURL:
         'https://www.malugos.com.br/images/virtuemart/product/Prancheta%204.png',
@@ -28,7 +28,7 @@ final dummyproducts = [
   Product(
     name: 'Teclado Gamer',
     description:
-        'uma cadeira gamer descrição descrição descrição descrição descrição',
+        'Teclado Gamer da malugos RGB',
     price: 201.10,
     imageURL:
         'https://www.malugos.com.br/images/virtuemart/product/Teclado-Mec-nico-Gamer-Redragon-Dark-Avenger-RGB-Switch-Red-PT-Com-Fio-K568-2_1639503116_gg.jpg',
