@@ -1,47 +1,27 @@
-# malugos_project
-making a aplications for malugos.
+# Malugos Project
+Making a aplications for malugos.
 
+The idea behind it is to make an application 
+for the company where I am working, just for 
+training purposes, I will be using the MYSQL 
+database to save the data.
 
-import 'dart:async';
+# Packages using in this project
+> provider: ^6.0.4
+> http: ^0.13.5
+> mysql1: ^0.20.0
 
-import 'package:mysql1/mysql1.dart';
+# How does it work?
 
-Future main() async {
-  // Open a connection (testdb should already exist)
-  final conn = await MySqlConnection.connect(ConnectionSettings(
-      host: 'localhost',
-      port: 3306,
-      user: 'root',
-      db: 'testdb',
-      password: 'secret'));
+The application provides an authentication system based on a database, 
+it will pull email and password, if you hit you can enter the application 
+and have your personal settings saved.
 
-  // Create a table
-  await conn.query(
-      'CREATE TABLE users (id int NOT NULL AUTO_INCREMENT PRIMARY KEY, name varchar(255), email varchar(255), age int)');
+The products, images, prices, were saved in the server's database,
+there will be columns for each type of information.
 
-  // Insert some data
-  var result = await conn.query(
-      'insert into users (name, email, age) values (?, ?, ?)',
-      ['Bob', 'bob@bob.com', 25]);
-  print('Inserted row id=${result.insertId}');
+Made in such a way that to change the quantity of products, 
+or any product information, you just need to change it inside 
+the database, making the application not need daily maintenance.
 
-  // Query the database using a parameterized query
-  var results = await conn.query(
-      'select name, email, age from users where id = ?', [result.insertId]);
-  for (var row in results) {
-    print('Name: ${row[0]}, email: ${row[1]} age: ${row[2]}');
-  }
-
-  // Update some data
-  await conn.query('update users set age=? where name=?', [26, 'Bob']);
-
-  // Query again database using a parameterized query
-  var results2 = await conn.query(
-      'select name, email, age from users where id = ?', [result.insertId]);
-  for (var row in results2) {
-    print('Name: ${row[0]}, email: ${row[1]} age: ${row[2]}');
-  }
-
-  // Finally, close the connection
-  await conn.close();
-}
+> by: LeandroTheDev
