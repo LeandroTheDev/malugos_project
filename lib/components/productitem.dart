@@ -5,7 +5,7 @@ class ProductItem extends StatelessWidget {
   final double price;
   final String imageUrl;
 
-  ProductItem(this.name, this.price, this.imageUrl, {super.key});
+  const ProductItem(this.name, this.price, this.imageUrl, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class ProductItem extends StatelessWidget {
             name,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
               color: Colors.black,
             ),
@@ -32,7 +32,7 @@ class ProductItem extends StatelessWidget {
           //Product Cost
           Text(
             '${price.toString()} Reais',
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.black,
             ),
           ),

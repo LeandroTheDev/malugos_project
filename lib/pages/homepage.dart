@@ -3,8 +3,6 @@ import 'package:malugos_project/components/drawer.dart';
 import 'package:malugos_project/components/productitem.dart';
 import 'package:malugos_project/data/productsdata.dart';
 import 'package:malugos_project/pages/featurepage.dart';
-import 'dart:async';
-import 'package:mysql1/mysql1.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,7 +12,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;

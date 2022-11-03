@@ -8,7 +8,7 @@ class FeaturePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Destaques'),
+        title: const Text('Destaques'),
       ),
       body: Column(),
     );
@@ -39,7 +39,6 @@ class FeatureProducts extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            
             //Image
             Padding(
               padding: const EdgeInsets.all(20.0),
@@ -49,24 +48,25 @@ class FeatureProducts extends StatelessWidget {
                 child: Image.network(imageURL),
               ),
             ),
-      
+
             //Description
             Padding(
               padding: const EdgeInsets.all(20),
               child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                 height: 400,
                 width: screenSize.width * 0.90,
                 decoration: BoxDecoration(
-                  color: const Color.fromARGB(206, 171, 207, 171),
-                  borderRadius: BorderRadius.circular(20)
-                ),
+                    color: const Color.fromARGB(206, 171, 207, 171),
+                    borderRadius: BorderRadius.circular(20)),
                 child: Text(description),
               ),
             ),
-            ElevatedButton(onPressed: (){}, child: Text('Adicionar ao Carrinho')),
+            ElevatedButton(
+                onPressed: () {}, child: const Text('Adicionar ao Carrinho')),
             const SizedBox(height: 25),
-            ElevatedButton(onPressed: (){}, child: Text('Ver no Site')),
+            ElevatedButton(onPressed: () {}, child: const Text('Ver no Site')),
             const SizedBox(height: 25),
           ],
         ),
