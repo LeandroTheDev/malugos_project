@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:malugos_project/data/provider.dart';
 import 'package:malugos_project/pages/authpage.dart';
 import 'package:malugos_project/pages/drawer_page/categorypage.dart';
 import 'package:malugos_project/pages/drawer_page/configurationpage.dart';
 import 'package:malugos_project/pages/drawer_page/profilepage.dart';
 import 'package:malugos_project/pages/featurepage.dart';
 import 'package:malugos_project/pages/homepage.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => Options(),)
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
