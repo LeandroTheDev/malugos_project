@@ -18,9 +18,12 @@ class _AuthPageState extends State<AuthPage> {
     final screenSize = MediaQuery.of(context).size;
     final options = Provider.of<Options>(context, listen: false);
     final optionsW = Provider.of<Options>(context);
+    final emailSave = TextEditingController();
+    final passwordSave = TextEditingController();
 
     //Start Login
-    mysqlconnect() async {
+    Future<bool> mysqlconnect() async {
+      //Start Connection with DataBase
       final mysql = await MySqlConnection.connect(
         ConnectionSettings(
           host: MySqlData.adress,
@@ -30,17 +33,55 @@ class _AuthPageState extends State<AuthPage> {
           password: MySqlData.password,
         ),
       );
-      try {
-        var result = await mysql.query(
-          'insert into usuarios (email, password) values (?, ?)',
-          ['bob@bob.com', 'password'],
-        );
-      } catch (result) {
-        final String error = result.toString();
-        //Erro email já existe
-        if (error.contains('1062')) {
-          print('Erro o email já existe.');
+      int id = 0;
+
+      //Test if credentials will Match
+      while (true) {
+        id++;
+        var results = await mysql
+            .query('select email, password from usuarios where id = ?', [id]);
+        //Verify if Email is valid
+        if (emailSave.text.length < 4) {
+          await mysql.close();
+          return false;
         }
+        if (!emailSave.text.contains('@')) {
+          await mysql.close();
+          return false;
+        }
+        //Verify if Table finish
+        if (results.isEmpty) {
+          await mysql.close();
+          return false;
+        }
+        //Verify if Email and Password Matchs
+        if (results.toString().contains(emailSave.text)) {
+          if (results.toString().contains(passwordSave.text)) {
+            dynamic username = await mysql
+                .query('select username from usuarios where id = ?', [id]);
+            username =
+                username.toString().replaceFirst('(Fields: {username: ', '');
+            username = username.substring(0, username.length - 2);
+            options.changeUserName(username);
+            options.changeUserEmail(emailSave.text);
+            options.changeUserPassword(passwordSave.text);
+            options.changeCredentialsMatch();
+            await mysql.close();
+            return true;
+          }
+        }
+      }
+    }
+
+    //Finish Login
+    Future authProcess() async {
+      await mysqlconnect();
+
+      if (options.credentials) {
+        return Navigator.of(context).pushReplacementNamed('/homepage');
+      } else {
+        print('Email ou senha estão incorretos');
+        return const AlertDialog();
       }
     }
 
@@ -109,9 +150,10 @@ class _AuthPageState extends State<AuthPage> {
                         child: SizedBox(
                           height: 33,
                           width: screenSize.width * 0.85,
-                          child: const TextField(
+                          child: TextField(
+                            controller: emailSave,
                             keyboardType: TextInputType.emailAddress,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               border: InputBorder.none,
                               contentPadding: EdgeInsets.symmetric(vertical: 0),
                               prefixIcon: Icon(
@@ -145,9 +187,10 @@ class _AuthPageState extends State<AuthPage> {
                         child: SizedBox(
                           height: 33,
                           width: screenSize.width * 0.85,
-                          child: const TextField(
+                          child: TextField(
+                            controller: passwordSave,
                             obscureText: true,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               border: InputBorder.none,
                               contentPadding: EdgeInsets.all(0),
                               prefixIcon: Icon(
@@ -167,11 +210,10 @@ class _AuthPageState extends State<AuthPage> {
                           value: optionsW.rememberMe,
                           onChanged: (value) {
                             options.changeRememberMe();
-                            print(options.rememberMe);
                           },
                           fillColor:
                               MaterialStateProperty.all<Color>(Colors.white),
-                              checkColor: Colors.white,
+                          checkColor: Colors.lightGreen,
                         ),
                         const Text(
                           'Lembrar',
@@ -186,18 +228,23 @@ class _AuthPageState extends State<AuthPage> {
                     Container(
                       alignment: Alignment.center,
                       child: ElevatedButton(
+                        //Button Color
                         style: ElevatedButton.styleFrom(
                           backgroundColor:
                               const Color.fromARGB(255, 144, 207, 71),
                         ),
-                        onPressed: () {},
+                        onPressed: () => authProcess(),
+                        //Button Text
                         child: Container(
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20)),
                           height: 20,
                           width: screenSize.width * 0.7,
-                          child: Text('Login'),
+                          child: const Text(
+                            'LOGIN',
+                            style: TextStyle(letterSpacing: 2),
+                          ),
                         ),
                       ),
                     )

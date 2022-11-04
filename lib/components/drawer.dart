@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:malugos_project/data/provider.dart';
+import 'package:provider/provider.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final usuario = 'Leandro';
     final screenSize = MediaQuery.of(context).size;
+    final option = Provider.of<Options>(context, listen: false);
     return Drawer(
       width: screenSize.width * 0.50,
       child: Column(
@@ -21,7 +23,13 @@ class AppDrawer extends StatelessWidget {
                 const SizedBox(width: 10),
                 const Icon(Icons.person_outline),
                 const SizedBox(width: 10),
-                Text('Olá $usuario'),
+                SizedBox(
+                  width: screenSize.width * 0.35,
+                  child: Text(
+                    'Olá ${option.username}',
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
               ],
             ),
           ),
