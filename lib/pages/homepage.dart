@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:malugos_project/components/drawer.dart';
 import 'package:malugos_project/components/productitem.dart';
 import 'package:malugos_project/data/productsdata.dart';
 import 'package:malugos_project/pages/featurepage.dart';
+import 'package:mysql1/mysql1.dart';
+import '../data/mysqldata.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,6 +18,60 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    //Connect to the database and push Products Info
+    Future pushProducts() async {
+      //Estabilish connection
+      final mysql = await MySqlConnection.connect(
+        ConnectionSettings(
+          host: MySqlData.adress,
+          port: MySqlData.port,
+          user: MySqlData.username,
+          db: MySqlData.data,
+          password: MySqlData.password,
+        ),
+      );
+      //Pick lenght of table products
+      int lenght = await MySqlData.featureLenght();
+      List<Product> data = [];
+      for (var u = 1; u <= lenght; u++) {
+        //Take the informations from database
+        dynamic name =
+            await mysql.query('select name from products where id = ?', [u]);
+        name = name.toString().replaceFirst('(Fields: {name: ', '');
+        name = name.substring(0, name.length - 2);
+        dynamic price =
+            await mysql.query('select price from products where id = ?', [u]);
+        price = price.toString().replaceFirst('(Fields: {price: ', '');
+        price = price.substring(0, price.length - 2);
+        price = double.parse(price);
+        dynamic imageURL = await mysql
+            .query('select imageURL from products where id = ?', [u]);
+        imageURL = imageURL.toString().replaceFirst('(Fields: {imageURL: ', '');
+        imageURL = imageURL.substring(0, imageURL.length - 2);
+        dynamic description = await mysql
+            .query('select description from products where id = ?', [u]);
+        description =
+            description.toString().replaceFirst('(Fields: {description: ', '');
+        description = description.substring(0, description.length - 2);
+        dynamic nameFull = await mysql
+            .query('select nameFULL from products where id = ?', [u]);
+        nameFull = nameFull.toString().replaceFirst('(Fields: {nameFULL: ', '');
+        nameFull = nameFull.substring(0, nameFull.length - 2);
+        //Repass the informations into variable
+        Product productInfo = Product(
+          id: u,
+          name: name,
+          description: description,
+          price: price,
+          imageURL: imageURL,
+          nameFull: nameFull,
+        );
+        //Add informations into list
+        data.add(productInfo);
+      }
+      return data;
+    }
+
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       drawer: const AppDrawer(),
@@ -64,36 +122,53 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           const SizedBox(height: 30),
-          //"Destaque" Products
-          SizedBox(
-            width: screenSize.width,
-            height: 210,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: dummyproducts.length,
-              itemBuilder: (context, i) {
-                return TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => FeatureProducts(
-                                name: dummyproducts[i].name,
-                                description: dummyproducts[i].description,
-                                price: dummyproducts[i].price,
-                                imageURL: dummyproducts[i].imageURL,
-                              )),
+          //Features Horizontal View
+          Padding(
+            padding: const EdgeInsets.only(left: 20),
+            child: SizedBox(
+              width: screenSize.width,
+              height: 210,
+              child: FutureBuilder(
+                future: pushProducts(),
+                builder: (BuildContext context, future) {
+                  if (future.data == null) {
+                    return const CircularProgressIndicator();
+                  } else {
+                    return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: future.data.length,
+                      itemBuilder: (BuildContext context, i) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => FeatureProducts(
+                                          name: future.data[i].name,
+                                          description:
+                                              future.data[i].description,
+                                          price: future.data[i].price,
+                                          imageURL: future.data[i].imageURL,
+                                          nameFull: future.data[i].nameFull,
+                                        )),
+                              );
+                            },
+                            child: ProductItem(
+                              future.data[i].name,
+                              future.data[i].price,
+                              future.data[i].imageURL,
+                            ),
+                          ),
+                        );
+                      },
                     );
-                  },
-                  child: ProductItem(
-                    dummyproducts[i].name,
-                    dummyproducts[i].price,
-                    dummyproducts[i].imageURL,
-                  ),
-                );
-              },
+                  }
+                },
+              ),
             ),
-          ),
+          )
         ],
       ),
     );

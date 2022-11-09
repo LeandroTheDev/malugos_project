@@ -21,17 +21,21 @@ class FeatureProducts extends StatelessWidget {
   final String description;
   final double price;
   final String imageURL;
+  final String nameFull;
 
-  const FeatureProducts(
-      {super.key,
-      this.name = '',
-      this.description = '',
-      this.price = 0,
-      this.imageURL = ''});
+  const FeatureProducts({
+    super.key,
+    this.name = '',
+    this.description = '',
+    this.price = 0,
+    this.imageURL = '',
+    this.nameFull = '',
+  });
 
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(name),
@@ -39,6 +43,22 @@ class FeatureProducts extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            //Full name
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Container(
+                padding: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  color: Colors.lightGreen,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text(
+                  nameFull,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 22),
+                ),
+              ),
+            ),
             //Image
             Padding(
               padding: const EdgeInsets.all(20.0),
@@ -48,14 +68,12 @@ class FeatureProducts extends StatelessWidget {
                 child: Image.network(imageURL),
               ),
             ),
-
             //Description
             Padding(
               padding: const EdgeInsets.all(20),
               child: Container(
                 padding:
                     const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                height: 400,
                 width: screenSize.width * 0.90,
                 decoration: BoxDecoration(
                     color: const Color.fromARGB(206, 171, 207, 171),
@@ -63,9 +81,11 @@ class FeatureProducts extends StatelessWidget {
                 child: Text(description),
               ),
             ),
+            //"Adicionar ao carrinho"
             ElevatedButton(
                 onPressed: () {}, child: const Text('Adicionar ao Carrinho')),
             const SizedBox(height: 25),
+            //"Ver no Site"
             ElevatedButton(onPressed: () {}, child: const Text('Ver no Site')),
             const SizedBox(height: 25),
           ],

@@ -6,11 +6,13 @@ for the company where I am working, just for
 training purposes, I will be using the MYSQL 
 database to save the data and loging into the aplication.
 
+Observation: this is a brazilian company, so the applications will be all in "portugues-brasil"
+
 # Packages using in this project
 
-> provider: ^6.0.4;
-> http: ^0.13.5;
-> mysql1: ^0.20.0;
+- provider: ^6.0.4
+- http: ^0.13.5
+- mysql1: ^0.20.0
 
 # How does it work?
 
@@ -24,5 +26,21 @@ there will be columns for each type of information.
 Made in such a way that to change the quantity of products, 
 or any product information, you just need to change it inside 
 the database, making the application not need daily maintenance.
+
+# Database works
+
+The database will have 3 importants tables and 1 main.
+
+> Malugos //Data bank
+will store all the tables
+
+- products
+> 7 column, [id,name,nameFULL,description,price,imageURL,category]
+in this table will save all the products that will be sold in the application
+- userdata
+> not yet implemented
+- users
+> 4 column, [id,email,password,username]
+in this table will save the account of the client.
 
 > by: LeandroTheDev

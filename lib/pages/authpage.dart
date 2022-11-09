@@ -17,7 +17,6 @@ class _AuthPageState extends State<AuthPage> {
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     final options = Provider.of<Options>(context, listen: false);
-    final optionsW = Provider.of<Options>(context);
     final emailSave = TextEditingController();
     final passwordSave = TextEditingController();
 
@@ -39,7 +38,7 @@ class _AuthPageState extends State<AuthPage> {
       while (true) {
         id++;
         var results = await mysql
-            .query('select email, password from usuarios where id = ?', [id]);
+            .query('select email, password from users where id = ?', [id]);
         //Verify if Email is valid
         if (emailSave.text.length < 4) {
           await mysql.close();
@@ -58,7 +57,7 @@ class _AuthPageState extends State<AuthPage> {
         if (results.toString().contains(emailSave.text)) {
           if (results.toString().contains(passwordSave.text)) {
             dynamic username = await mysql
-                .query('select username from usuarios where id = ?', [id]);
+                .query('select username from users where id = ?', [id]);
             username =
                 username.toString().replaceFirst('(Fields: {username: ', '');
             username = username.substring(0, username.length - 2);
@@ -78,9 +77,9 @@ class _AuthPageState extends State<AuthPage> {
       await mysqlconnect();
 
       if (options.credentials) {
+        // ignore: use_build_context_synchronously
         return Navigator.of(context).pushReplacementNamed('/homepage');
       } else {
-        print('Email ou senha estão incorretos');
         return const AlertDialog();
       }
     }
@@ -203,27 +202,7 @@ class _AuthPageState extends State<AuthPage> {
                         ),
                       ),
                     ),
-                    //Remember Informations
-                    Row(
-                      children: [
-                        Checkbox(
-                          value: optionsW.rememberMe,
-                          onChanged: (value) {
-                            options.changeRememberMe();
-                          },
-                          fillColor:
-                              MaterialStateProperty.all<Color>(Colors.white),
-                          checkColor: Colors.lightGreen,
-                        ),
-                        const Text(
-                          'Lembrar',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 49, 49, 49),
-                          ),
-                        )
-                      ],
-                    ),
+                    const SizedBox(height: 20),
                     //Login Button
                     Container(
                       alignment: Alignment.center,
