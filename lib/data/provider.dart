@@ -5,12 +5,16 @@ class Options with ChangeNotifier {
   String _username = '';
   String _email = '';
   String _password = '';
+  TextEditingController _emailLogin = TextEditingController();
+  TextEditingController _passwordLogin = TextEditingController();
   int _id = 0;
   bool _credentials = false;
 
   String get username => _username;
   String get email => _email;
   String get password => _password;
+  dynamic get emailLogin => _emailLogin;
+  dynamic get passwordLogin => _passwordLogin;
   int get id => _id;
   bool get credentials => _credentials;
 
@@ -24,6 +28,16 @@ class Options with ChangeNotifier {
 
   void changeUserPassword(String value) {
     _password = value;
+  }
+
+  TextEditingController changeEmailLogin(TextEditingController value){
+    _emailLogin = value;
+    return _emailLogin;
+  }
+
+  TextEditingController changePasswordLogin(TextEditingController value){
+    _passwordLogin = value;
+    return _passwordLogin;
   }
 
   void changeId(int value) {

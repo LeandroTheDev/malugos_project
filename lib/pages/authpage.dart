@@ -17,8 +17,6 @@ class _AuthPageState extends State<AuthPage> {
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     final options = Provider.of<Options>(context, listen: false);
-    final emailSave = TextEditingController();
-    final passwordSave = TextEditingController();
 
     //Start Login
     Future<bool> mysqlconnect() async {
@@ -40,11 +38,11 @@ class _AuthPageState extends State<AuthPage> {
         var results = await mysql
             .query('select email, password from users where id = ?', [id]);
         //Verify if Email is valid
-        if (emailSave.text.length < 4) {
+        if (options.emailLogin.text.length < 4) {
           await mysql.close();
           return false;
         }
-        if (!emailSave.text.contains('@')) {
+        if (!options.emailLogin.text.contains('@')) {
           await mysql.close();
           return false;
         }
@@ -54,8 +52,8 @@ class _AuthPageState extends State<AuthPage> {
           return false;
         }
         //Verify if Email and Password Matchs
-        if (results.toString().contains(emailSave.text)) {
-          if (results.toString().contains(passwordSave.text)) {
+        if (results.toString().contains(options.emailLogin.text)) {
+          if (results.toString().contains(options.passwordLogin.text)) {
             dynamic username = await mysql
                 .query('select username from users where id = ?', [id]);
             username =
@@ -63,8 +61,8 @@ class _AuthPageState extends State<AuthPage> {
             username = username.substring(0, username.length - 2);
             //Add in the provider all informations
             options.changeUserName(username);
-            options.changeUserEmail(emailSave.text);
-            options.changeUserPassword(passwordSave.text);
+            options.changeUserEmail(options.emailLogin.text);
+            options.changeUserPassword(options.passwordLogin.text);
             options.changeCredentialsMatch();
             //Create the userdata on database
             try {
@@ -163,8 +161,8 @@ class _AuthPageState extends State<AuthPage> {
                         child: SizedBox(
                           height: 33,
                           width: screenSize.width * 0.85,
-                          child: TextField(
-                            controller: emailSave,
+                          child: TextFormField(
+                            controller: options.emailLogin,
                             keyboardType: TextInputType.emailAddress,
                             decoration: const InputDecoration(
                               border: InputBorder.none,
@@ -200,8 +198,8 @@ class _AuthPageState extends State<AuthPage> {
                         child: SizedBox(
                           height: 33,
                           width: screenSize.width * 0.85,
-                          child: TextField(
-                            controller: passwordSave,
+                          child: TextFormField(
+                            controller: options.passwordLogin,
                             obscureText: true,
                             decoration: const InputDecoration(
                               border: InputBorder.none,
