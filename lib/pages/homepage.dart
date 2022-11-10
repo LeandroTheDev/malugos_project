@@ -69,6 +69,7 @@ class _HomePageState extends State<HomePage> {
         //Add informations into list
         data.add(productInfo);
       }
+      await mysql.close();
       return data;
     }
 

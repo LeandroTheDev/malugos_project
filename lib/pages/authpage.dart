@@ -61,12 +61,26 @@ class _AuthPageState extends State<AuthPage> {
             username =
                 username.toString().replaceFirst('(Fields: {username: ', '');
             username = username.substring(0, username.length - 2);
+            //Add in the provider all informations
             options.changeUserName(username);
             options.changeUserEmail(emailSave.text);
             options.changeUserPassword(passwordSave.text);
             options.changeCredentialsMatch();
-            await mysql.close();
-            return true;
+            //Create the userdata on database
+            try {
+              await mysql.query('insert into userdata (id) values (?)', [id]);
+              options.changeId(id);
+              await mysql.close();
+              return true;
+            } catch (error) {
+              if (error.toString().contains('Duplicate entry')) {
+                options.changeId(id);
+                await mysql.close();
+                return true;
+              } else {
+                return false;
+              }
+            }
           }
         }
       }
@@ -74,9 +88,9 @@ class _AuthPageState extends State<AuthPage> {
 
     //Finish Login
     Future authProcess() async {
-      await mysqlconnect();
+      bool credentials = await mysqlconnect();
 
-      if (options.credentials) {
+      if (credentials) {
         // ignore: use_build_context_synchronously
         return Navigator.of(context).pushReplacementNamed('/homepage');
       } else {

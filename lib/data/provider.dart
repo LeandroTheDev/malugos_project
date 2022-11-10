@@ -1,15 +1,17 @@
 import 'package:flutter/cupertino.dart';
 
 class Options with ChangeNotifier {
-  //Profile Datas
+  //Profile Credentials
   String _username = '';
   String _email = '';
   String _password = '';
+  int _id = 0;
   bool _credentials = false;
 
   String get username => _username;
   String get email => _email;
   String get password => _password;
+  int get id => _id;
   bool get credentials => _credentials;
 
   void changeUserName(String value) {
@@ -24,8 +26,33 @@ class Options with ChangeNotifier {
     _password = value;
   }
 
+  void changeId(int value) {
+    _id = value;
+  }
+
   void changeCredentialsMatch() {
     _credentials = !_credentials;
+  }
+
+  //Profile Datas
+  double _credits = 0;
+  int _onWay = 0;
+  int _points = 0;
+
+  double get credits => _credits;
+  int get onWay => _onWay;
+  int get points => _points;
+
+  void changeCredits(double value) {
+    _credits = value;
+  }
+
+  void changeOnWay(int value) {
+    _onWay = value;
+  }
+
+  void changePoints(int value) {
+    _points = value;
   }
 
   //Configuration
