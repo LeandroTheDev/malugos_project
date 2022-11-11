@@ -124,52 +124,88 @@ class _HomePageState extends State<HomePage> {
           ),
           const SizedBox(height: 30),
           //Features Horizontal View
-          Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: SizedBox(
-              width: screenSize.width,
-              height: 210,
-              child: FutureBuilder(
-                future: pushProducts(),
-                builder: (BuildContext context, future) {
-                  if (future.data == null) {
-                    return const CircularProgressIndicator();
-                  } else {
-                    return ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: future.data.length,
-                      itemBuilder: (BuildContext context, i) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => FeatureProducts(
-                                          name: future.data[i].name,
-                                          description:
-                                              future.data[i].description,
-                                          price: future.data[i].price,
-                                          imageURL: future.data[i].imageURL,
-                                          nameFull: future.data[i].nameFull,
-                                        )),
-                              );
-                            },
-                            child: ProductItem(
-                              future.data[i].name,
-                              future.data[i].price,
-                              future.data[i].imageURL,
-                            ),
+          SizedBox(
+            width: screenSize.width,
+            height: 210,
+            child: FutureBuilder(
+              future: pushProducts(),
+              builder: (BuildContext context, future) {
+                if (future.data == null) {
+                  return const Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 100, vertical: 40),
+                    child: CircularProgressIndicator(),
+                  );
+                } else {
+                  return ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: future.data.length,
+                    itemBuilder: (BuildContext context, i) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => FeatureProducts(
+                                        name: future.data[i].name,
+                                        description: future.data[i].description,
+                                        price: future.data[i].price,
+                                        imageURL: future.data[i].imageURL,
+                                        nameFull: future.data[i].nameFull,
+                                      )),
+                            );
+                          },
+                          child: ProductItem(
+                            future.data[i].name,
+                            future.data[i].price,
+                            future.data[i].imageURL,
                           ),
-                        );
-                      },
-                    );
-                  }
-                },
+                        ),
+                      );
+                    },
+                  );
+                }
+              },
+            ),
+          ),
+          const Divider(),
+          //"Mais Vendidos"
+          const SizedBox(height: 30),
+          TextButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/featurepage');
+            },
+            child: Container(
+              width: screenSize.width * 0.45,
+              height: 40,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.black,
+              ),
+              child: Row(
+                children: const [
+                  Spacer(),
+                  Icon(
+                    Icons.shop,
+                    color: Colors.lightGreen,
+                  ),
+                  SizedBox(width: 5),
+                  Text(
+                    'Mais Vendidos',
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: Colors.lightGreen,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                    ),
+                  ),
+                  Spacer(),
+                ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );
