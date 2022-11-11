@@ -13,6 +13,7 @@ Observation: this is a brazilian company, so the applications will be all in "po
 - provider: ^6.0.4
 - http: ^0.13.5
 - mysql1: ^0.20.0
+- carousel_slider: ^4.1.1
 
 # How does it work?
 

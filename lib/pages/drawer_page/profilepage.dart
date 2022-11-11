@@ -45,7 +45,7 @@ class ProfilePage extends StatelessWidget {
                   //Credits number
                   child: Text(
                     '${profileData.credits.toStringAsFixed(2)} R\$',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 const Spacer(),
@@ -55,7 +55,7 @@ class ProfilePage extends StatelessWidget {
                     width: 100,
                     child: Text(
                       profileData.onWay.toString(),
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     )),
                 const Spacer(),
                 //Points number
@@ -64,7 +64,7 @@ class ProfilePage extends StatelessWidget {
                     width: 100,
                     child: Text(
                       profileData.points.toString(),
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     )),
                 const Spacer(),
               ],
@@ -186,7 +186,7 @@ class ProfilePage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        //To be implemented
+                        //Order Location
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10),
                           child: SizedBox(

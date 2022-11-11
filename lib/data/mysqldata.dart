@@ -10,7 +10,7 @@ class MySqlData {
   static String password = 'password';
 
   //Returns the features Length
-  static Future<int> featureLenght() async {
+  static Future<int> featureLenght(id) async {
     final mysql = await MySqlConnection.connect(
       ConnectionSettings(
         host: MySqlData.adress,
@@ -21,17 +21,14 @@ class MySqlData {
       ),
     );
     //Verify if the table is finish
-    int id = 0;
     while (true) {
-      id++;
       var idData =
           await mysql.query('select id from products where id = ?', [id]);
       if (idData.toString() == '()') {
         id--;
         break;
-      } else if (id >= 10) {
-        break;
       }
+      id++;
     }
     return id;
   }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class ProductItem extends StatelessWidget {
+class ProductItemH extends StatelessWidget {
   final String name;
   final double price;
   final String imageUrl;
 
-  const ProductItem(this.name, this.price, this.imageUrl, {super.key});
+  const ProductItemH(this.name, this.price, this.imageUrl, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,11 +13,17 @@ class ProductItem extends StatelessWidget {
       width: 150,
       child: Column(
         children: [
+          const SizedBox(height: 7),
           //Product Image
-          SizedBox(
+          Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20), color: Colors.white),
             height: 160,
             width: 160,
-            child: Image.network(imageUrl),
+            child: Image.network(
+              imageUrl,
+              scale: 8,
+            ),
           ),
           //Product Name
           Text(
