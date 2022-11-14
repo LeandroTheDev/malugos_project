@@ -24,7 +24,8 @@ class FeaturePage extends StatelessWidget {
         ),
       );
       //Pick lenght of table products
-      int lenght = await MySqlData.featureLenght(id);
+      int lenght = await MySqlData.featureLenghtV(id);
+      int lenght2 = await MySqlData.featureLenghtV(11);
       List<Product> data = [];
       for (id; id <= lenght; id++) {
         //Take the informations from database
@@ -61,9 +62,30 @@ class FeaturePage extends StatelessWidget {
         );
         //Add informations into list
         data.add(productInfo);
+        //Jump the limiter
+        if (id == lenght && id <= 10) {
+          id = 10;
+          lenght = 10 + lenght2;
+        }
       }
       await mysql.close();
       return data;
+    }
+
+    Future pushCategory([id]) async {
+      //Estabilish connection
+      final mysql = await MySqlConnection.connect(
+        ConnectionSettings(
+          host: MySqlData.adress,
+          port: MySqlData.port,
+          user: MySqlData.username,
+          db: MySqlData.data,
+          password: MySqlData.password,
+        ),
+      );
+      //Pick lenght of table products
+      int lenght = await MySqlData.featureLenghtV(id);
+      List<String> data = [];
     }
 
     return Scaffold(

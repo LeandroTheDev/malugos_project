@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
         ),
       );
       //Pick lenght of table products
-      int lenght = await MySqlData.featureLenght(id);
+      int lenght = await MySqlData.featureLenghtH(id);
       List<Product> data = [];
       for (id; id <= lenght; id++) {
         //Take the informations from database
