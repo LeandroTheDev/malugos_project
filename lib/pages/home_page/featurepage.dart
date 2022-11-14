@@ -11,6 +11,7 @@ class FeaturePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
+    String selectedCategory = 'Tudo';
 
     Future pushProducts([id]) async {
       //Estabilish connection
@@ -85,7 +86,23 @@ class FeaturePage extends StatelessWidget {
       );
       //Pick lenght of table products
       int lenght = await MySqlData.featureLenghtV(id);
-      List<String> data = [];
+      int lenght2 = await MySqlData.featureLenghtV(11);
+      List<String> data = ['Tudo'];
+      for (id; id <= lenght; id++) {
+        dynamic category = await mysql
+            .query('select category from products where id = ?', [id]);
+        category = category.toString().replaceFirst('(Fields: {category: ', '');
+        category = category.substring(0, category.length - 2);
+        if (!data.contains(category)) {
+          data.add(category);
+        }
+        //Jump the limiter
+        if (id == lenght && id <= 10) {
+          id = 10;
+          lenght = 10 + lenght2;
+        }
+      }
+      return data;
     }
 
     return Scaffold(
@@ -96,13 +113,21 @@ class FeaturePage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 5),
-          const Padding(
-            padding: EdgeInsets.all(15.0),
-            child: Text(
-              'Categoria: ',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-          ),
+          //Category button
+          FutureBuilder(
+              future: pushCategory(1),
+              builder: (context, future) {
+                if (future.data == null) {
+                  return const Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 30.0, vertical: 10),
+                    child: CircularProgressIndicator(),
+                  );
+                } else {
+                  return Text('Future dropdown button');
+                }
+              }),
+
           const Spacer(),
           //Show features products
           FutureBuilder(
