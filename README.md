@@ -30,10 +30,10 @@ the database, making the application not need daily maintenance.
 
 # Database works
 
-The database will have 3 importants tables and 1 main.
+The database will have 3 importants tables and 1 Data Bank.
 
-> Malugos //Data bank
-will store all the tables
+- Malugos
+> Data Bank
 
 - products
 > 7 column, [id,name,nameFULL,description,price,imageURL,category]

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:malugos_project/components/drawer.dart';
 import 'package:malugos_project/components/productitem_h.dart';
 import 'package:malugos_project/data/productsdata.dart';
-import 'package:malugos_project/pages/featurepage.dart';
+import 'package:malugos_project/pages/home_page/featurepage.dart';
 import 'package:mysql1/mysql1.dart';
 import '../data/mysqldata.dart';
 
@@ -163,7 +163,7 @@ class _HomePageState extends State<HomePage> {
                     return ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: future.data.length,
-                      itemBuilder: (BuildContext context, i) {
+                      itemBuilder: (context, i) {
                         return Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 5.0),
                           child: Container(
