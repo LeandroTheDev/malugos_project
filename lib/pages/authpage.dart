@@ -13,6 +13,20 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
+  String username = '';
+  String password = '';
+  bool remember = false;
+  //Starting the page
+  @override
+  void initState() {
+    super.initState();
+    //Load datas
+    username = UserPreferences.getUsername() ?? '';
+    password = UserPreferences.getPassword() ?? '';
+    remember = UserPreferences.getRemember() ?? false;
+    if (remember) {}
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -38,6 +52,9 @@ class _AuthPageState extends State<AuthPage> {
       } catch (error) {
         if (error.toString().contains('1225')) {
           errorMsg = 'Ops o servidor parece estar Offline';
+          username = UserPreferences.getUsername().toString();
+          password = UserPreferences.getPassword().toString();
+          remember = UserPreferences.getRemember() as bool;
           return false;
         } else {
           errorMsg = 'Erro Desconhecido';
@@ -106,8 +123,15 @@ class _AuthPageState extends State<AuthPage> {
     //Finish Login
     Future authProcess() async {
       bool credentials = await mysqlconnect();
-
+      if (!credentials) {
+        optionsW.changeIsLoading();
+      }
       if (credentials) {
+        if (options.rememberLogin) {
+          UserPreferences.setUsername(options.username);
+          UserPreferences.setPassword(options.password);
+          UserPreferences.setRemember(options.rememberLogin);
+        }
         // ignore: use_build_context_synchronously
         return Navigator.of(context).pushReplacementNamed('/homepage');
       } else {
@@ -263,26 +287,33 @@ class _AuthPageState extends State<AuthPage> {
                     //Login Button
                     Container(
                       alignment: Alignment.center,
-                      child: ElevatedButton(
-                        //Button Color
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              const Color.fromARGB(255, 144, 207, 71),
-                        ),
-                        onPressed: () => authProcess(),
-                        //Button Text
-                        child: Container(
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20)),
-                          height: 20,
-                          width: screenSize.width * 0.7,
-                          child: const Text(
-                            'LOGIN',
-                            style: TextStyle(letterSpacing: 2),
-                          ),
-                        ),
-                      ),
+                      child: options.isLoading
+                          ? const CircularProgressIndicator(
+                              color: Colors.white,
+                            )
+                          : ElevatedButton(
+                              //Button Color
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    const Color.fromARGB(255, 144, 207, 71),
+                              ),
+                              onPressed: () {
+                                optionsW.changeIsLoading();
+                                authProcess();
+                              },
+                              //Button Text
+                              child: Container(
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20)),
+                                height: 20,
+                                width: screenSize.width * 0.7,
+                                child: const Text(
+                                  'LOGIN',
+                                  style: TextStyle(letterSpacing: 2),
+                                ),
+                              ),
+                            ),
                     )
                   ],
                 ),

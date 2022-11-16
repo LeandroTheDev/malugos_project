@@ -79,11 +79,18 @@ class Options with ChangeNotifier {
 
   //Configuration
   bool _notifications = false;
+  bool _isLoading = false;
 
   bool get notifications => _notifications;
+  bool get isLoading => _isLoading;
 
   void changeNotifications() {
     _notifications = !_notifications;
+    notifyListeners();
+  }
+
+  void changeIsLoading() {
+    _isLoading = !_isLoading;
     notifyListeners();
   }
 }
@@ -91,6 +98,26 @@ class Options with ChangeNotifier {
 class UserPreferences {
   static late SharedPreferences _preferences;
 
+  static const _username = 'username';
+  static const _password = 'password';
+  static const _remember = false;
+
   static Future init() async =>
       _preferences = await SharedPreferences.getInstance();
+
+  static Future setUsername(String username) async {
+    await _preferences.setString(_username, username);
+  }
+
+  static Future setPassword(String password) async {
+    await _preferences.setString(_password, password);
+  }
+
+  static Future setRemember(bool value) async {
+    await _preferences.setBool(_remember.toString(), value);
+  }
+
+  static String? getUsername() => _preferences.getString(_username);
+  static String? getPassword() => _preferences.getString(_password);
+  static bool? getRemember() => _preferences.getBool(_remember.toString());
 }
