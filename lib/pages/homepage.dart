@@ -149,7 +149,7 @@ class _HomePageState extends State<HomePage> {
             //Features Horizontal View
             SizedBox(
               width: screenSize.width,
-              height: 210,
+              height: 220,
               child: FutureBuilder(
                 future: pushProducts(1),
                 builder: (BuildContext context, future) {

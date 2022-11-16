@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:malugos_project/data/mysqldata.dart';
 import 'package:mysql1/mysql1.dart';
@@ -24,7 +26,9 @@ class _AuthPageState extends State<AuthPage> {
     username = UserPreferences.getUsername() ?? '';
     password = UserPreferences.getPassword() ?? '';
     remember = UserPreferences.getRemember() ?? false;
-    if (remember) {}
+    if (remember) {
+      print(remember);
+    }
   }
 
   @override
@@ -37,10 +41,7 @@ class _AuthPageState extends State<AuthPage> {
     //Start Login
     Future<bool> mysqlconnect() async {
       //Start Connection with DataBase
-      MySqlConnection mysql;
-      //Error treatment for conections
-      try {
-        mysql = await MySqlConnection.connect(
+      MySqlConnection mysql = await MySqlConnection.connect(
           ConnectionSettings(
             host: MySqlData.adress,
             port: MySqlData.port,
@@ -49,25 +50,21 @@ class _AuthPageState extends State<AuthPage> {
             password: MySqlData.password,
           ),
         );
-      } catch (error) {
-        if (error.toString().contains('1225')) {
-          errorMsg = 'Ops o servidor parece estar Offline';
-          username = UserPreferences.getUsername().toString();
-          password = UserPreferences.getPassword().toString();
-          remember = UserPreferences.getRemember() as bool;
-          return false;
-        } else {
-          errorMsg = 'Erro Desconhecido';
-          return false;
-        }
-      }
       int id = 0;
 
       //Test if credentials will Match
       while (true) {
         id++;
-        var results = await mysql
-            .query('select email, password from users where id = ?', [id]);
+        //pickup email
+        dynamic email = await mysql
+            .query('select email from users where id = ?', [id]);
+        email = email.toString().replaceFirst('(Fields: {email: ', '');
+        email = email.substring(0, email.length - 2);
+        //pickup password
+        dynamic password = await mysql
+            .query('select password from users where id = ?', [id]);
+        password = password.toString().replaceFirst('(Fields: {password: ', '');
+        password = password.substring(0, password.length - 2);
         //Verify if Email is valid
         if (options.emailLogin.text.length < 4) {
           await mysql.close();
@@ -80,14 +77,14 @@ class _AuthPageState extends State<AuthPage> {
           return false;
         }
         //Verify if Table finish
-        if (results.isEmpty) {
+        if (email == '') {
           await mysql.close();
           errorMsg = 'Ops, E-mail ou senha inválidos';
           return false;
         }
         //Verify if Email and Password Matchs
-        if (results.toString().contains(options.emailLogin.text)) {
-          if (results.toString().contains(options.passwordLogin.text)) {
+        if (email == options.emailLogin.text) {
+          if (password == options.passwordLogin.text) {
             dynamic username = await mysql
                 .query('select username from users where id = ?', [id]);
             username =
@@ -105,7 +102,8 @@ class _AuthPageState extends State<AuthPage> {
               await mysql.close();
               return true;
             } catch (error) {
-              if (error.toString().contains('Duplicate entry')) {
+              print(error);
+              if (error.toString().contains('1062')) {
                 options.changeId(id);
                 await mysql.close();
                 return true;

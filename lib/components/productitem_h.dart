@@ -39,6 +39,7 @@ class ProductItemH extends StatelessWidget {
           Text(
             '${price.toString()} Reais',
             style: const TextStyle(
+              fontSize: 15,
               color: Colors.black,
             ),
           ),
