@@ -17,19 +17,33 @@ class _AuthPageState extends State<AuthPage> {
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     final options = Provider.of<Options>(context, listen: false);
+    final optionsW = Provider.of<Options>(context, listen: true);
+    String errorMsg = 'Erro Desconhecido';
 
     //Start Login
     Future<bool> mysqlconnect() async {
       //Start Connection with DataBase
-      final mysql = await MySqlConnection.connect(
-        ConnectionSettings(
-          host: MySqlData.adress,
-          port: MySqlData.port,
-          user: MySqlData.username,
-          db: MySqlData.data,
-          password: MySqlData.password,
-        ),
-      );
+      MySqlConnection mysql;
+      //Error treatment for conections
+      try {
+        mysql = await MySqlConnection.connect(
+          ConnectionSettings(
+            host: MySqlData.adress,
+            port: MySqlData.port,
+            user: MySqlData.username,
+            db: MySqlData.data,
+            password: MySqlData.password,
+          ),
+        );
+      } catch (error) {
+        if (error.toString().contains('1225')) {
+          errorMsg = 'Ops o servidor parece estar Offline';
+          return false;
+        } else {
+          errorMsg = 'Erro Desconhecido';
+          return false;
+        }
+      }
       int id = 0;
 
       //Test if credentials will Match
@@ -40,15 +54,18 @@ class _AuthPageState extends State<AuthPage> {
         //Verify if Email is valid
         if (options.emailLogin.text.length < 4) {
           await mysql.close();
+          errorMsg = 'Ops, E-mail ou senha inválidos';
           return false;
         }
         if (!options.emailLogin.text.contains('@')) {
           await mysql.close();
+          errorMsg = 'Ops, E-mail ou senha inválidos';
           return false;
         }
         //Verify if Table finish
         if (results.isEmpty) {
           await mysql.close();
+          errorMsg = 'Ops, E-mail ou senha inválidos';
           return false;
         }
         //Verify if Email and Password Matchs
@@ -76,6 +93,8 @@ class _AuthPageState extends State<AuthPage> {
                 await mysql.close();
                 return true;
               } else {
+                errorMsg =
+                    'Ops aconteceu um erro na hora de confirmar sua identidade';
                 return false;
               }
             }
@@ -92,7 +111,14 @@ class _AuthPageState extends State<AuthPage> {
         // ignore: use_build_context_synchronously
         return Navigator.of(context).pushReplacementNamed('/homepage');
       } else {
-        return const AlertDialog();
+        return showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: const Text(':('),
+                content: Text(errorMsg),
+              );
+            });
       }
     }
 
@@ -214,7 +240,26 @@ class _AuthPageState extends State<AuthPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 10),
+                    //Remember
+                    Row(
+                      children: [
+                        Checkbox(
+                          value: options.rememberLogin,
+                          fillColor:
+                              MaterialStateProperty.all<Color>(Colors.white),
+                          checkColor: Colors.lightGreen,
+                          onChanged: (_) {
+                            optionsW.changeRememberLogin();
+                          },
+                        ),
+                        const Text(
+                          'Lembrar',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 15),
                     //Login Button
                     Container(
                       alignment: Alignment.center,

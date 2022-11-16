@@ -8,7 +8,11 @@ import 'package:malugos_project/pages/home_page/featurepage.dart';
 import 'package:malugos_project/pages/homepage.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+Future main() async {
+  //Loads the configurations
+  WidgetsFlutterBinding.ensureInitialized();
+  await UserPreferences.init();
+
   runApp(
     MultiProvider(
       providers: [

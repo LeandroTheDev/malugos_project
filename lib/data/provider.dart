@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Options with ChangeNotifier {
   //Profile Credentials
@@ -8,6 +9,7 @@ class Options with ChangeNotifier {
   TextEditingController _emailLogin = TextEditingController();
   TextEditingController _passwordLogin = TextEditingController();
   int _id = 0;
+  bool _rememberLogin = false;
   bool _credentials = false;
 
   String get username => _username;
@@ -16,6 +18,7 @@ class Options with ChangeNotifier {
   dynamic get emailLogin => _emailLogin;
   dynamic get passwordLogin => _passwordLogin;
   int get id => _id;
+  bool get rememberLogin => _rememberLogin;
   bool get credentials => _credentials;
 
   void changeUserName(String value) {
@@ -30,18 +33,23 @@ class Options with ChangeNotifier {
     _password = value;
   }
 
-  TextEditingController changeEmailLogin(TextEditingController value){
+  TextEditingController changeEmailLogin(TextEditingController value) {
     _emailLogin = value;
     return _emailLogin;
   }
 
-  TextEditingController changePasswordLogin(TextEditingController value){
+  TextEditingController changePasswordLogin(TextEditingController value) {
     _passwordLogin = value;
     return _passwordLogin;
   }
 
   void changeId(int value) {
     _id = value;
+  }
+
+  void changeRememberLogin() {
+    _rememberLogin = !_rememberLogin;
+    notifyListeners();
   }
 
   void changeCredentialsMatch() {
@@ -78,4 +86,11 @@ class Options with ChangeNotifier {
     _notifications = !_notifications;
     notifyListeners();
   }
+}
+
+class UserPreferences {
+  static late SharedPreferences _preferences;
+
+  static Future init() async =>
+      _preferences = await SharedPreferences.getInstance();
 }

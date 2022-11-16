@@ -14,6 +14,7 @@ Observation: this is a brazilian company, so the applications will be all in "po
 - http: ^0.13.5
 - mysql1: ^0.20.0
 - carousel_slider: ^4.1.1
+- shared_preferences: ^2.0.15
 
 # How does it work?
 
