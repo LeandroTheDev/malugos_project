@@ -1,6 +1,4 @@
-import 'package:malugos_project/data/provider.dart';
 import 'package:mysql1/mysql1.dart';
-import 'package:provider/provider.dart';
 
 class MySqlData {
   static String username = 'root';
@@ -58,19 +56,5 @@ class MySqlData {
       result++;
     }
     return result;
-  }
-
-  //Update the providers from the database
-  static Future updateProfileDatas([id, context]) async {
-    final options = Provider.of<Options>(context, listen: false);
-    final mysql = await MySqlConnection.connect(
-      ConnectionSettings(
-        host: MySqlData.adress,
-        port: MySqlData.port,
-        user: MySqlData.username,
-        db: MySqlData.data,
-        password: MySqlData.password,
-      ),
-    );
   }
 }
