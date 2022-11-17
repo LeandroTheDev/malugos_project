@@ -80,9 +80,11 @@ class Options with ChangeNotifier {
   //Configuration
   bool _notifications = false;
   bool _isLoading = false;
+  String _featureCategory = 'Tudo';
 
   bool get notifications => _notifications;
   bool get isLoading => _isLoading;
+  String get featureCategory => _featureCategory;
 
   void changeNotifications() {
     _notifications = !_notifications;
@@ -91,6 +93,11 @@ class Options with ChangeNotifier {
 
   void changeIsLoading() {
     _isLoading = !_isLoading;
+    notifyListeners();
+  }
+
+  void changeFeatureCategory(String value) {
+    _featureCategory = value;
     notifyListeners();
   }
 }

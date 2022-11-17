@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:malugos_project/data/productsdata.dart';
+import 'package:malugos_project/data/provider.dart';
 import 'package:mysql1/mysql1.dart';
+import 'package:provider/provider.dart';
 import '../../components/productitem_v.dart';
 import '../../data/mysqldata.dart';
 
 //Feature Page
-class FeaturePage extends StatelessWidget {
+class FeaturePage extends StatefulWidget {
   const FeaturePage({super.key});
 
   @override
+  State<FeaturePage> createState() => _FeaturePageState();
+}
+
+class _FeaturePageState extends State<FeaturePage> {
+  @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    String selectedCategory = 'Tudo';
+    final optionsW = Provider.of<Options>(context, listen: true);
 
-    Future pushProducts([id]) async {
+    Future pushProducts([id, category]) async {
       //Estabilish connection
       final mysql = await MySqlConnection.connect(
         ConnectionSettings(
@@ -114,24 +121,55 @@ class FeaturePage extends StatelessWidget {
         children: [
           const SizedBox(height: 5),
           //Category button
-          FutureBuilder(
-              future: pushCategory(1),
-              builder: (context, future) {
-                if (future.data == null) {
-                  return const Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 30.0, vertical: 10),
-                    child: CircularProgressIndicator(),
-                  );
-                } else {
-                  return Text('Future dropdown button');
-                }
-              }),
-
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Row(
+              children: [
+                //Category text
+                const Text('Categoria:  '),
+                //Select Category
+                FutureBuilder(
+                    future: pushCategory(1),
+                    builder: (context, future) {
+                      if (future.data == null) {
+                        return const Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 30.0, vertical: 10),
+                          child: CircularProgressIndicator(),
+                        );
+                      } else {
+                        return Container(
+                          decoration: BoxDecoration(
+                            color: Colors.lightGreen,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: DropdownButton<String>(
+                            onChanged: (String? newValue) {
+                              optionsW.changeFeatureCategory(newValue!);
+                            },
+                            value: optionsW.featureCategory,
+                            items: future.data.map<DropdownMenuItem<String>>(
+                              (String value) {
+                                return DropdownMenuItem(
+                                  value: value,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(value),
+                                  ),
+                                );
+                              },
+                            ).toList(),
+                          ),
+                        );
+                      }
+                    }),
+              ],
+            ),
+          ),
           const Spacer(),
           //Show features products
           FutureBuilder(
-              future: pushProducts(1),
+              future: pushProducts(1, optionsW.featureCategory),
               builder: (context, future) {
                 if (future.data == null) {
                   return Container(

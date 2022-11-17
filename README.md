@@ -31,18 +31,8 @@ the database, making the application not need daily maintenance.
 
 # Database works
 
-The database will have 3 importants tables and 1 Data Bank.
+The database will have 1 Data Bank and 3 importants table.
 
-- Malugos
-> Data Bank
-
-- products
-> 7 column, [id,name,nameFULL,description,price,imageURL,category]
-in this table will save all the products that will be sold in the application
-- userdata
-> not yet implemented
-- users
-> 4 column, [id,email,password,username]
-in this table will save the account of the client.
+The applications works behind this database, see the [Database Configuration](https://github.com/LeandroTheDev/malugos_project/wiki/Database-Configuration) for more informations to configure.
 
 > by: LeandroTheDev
