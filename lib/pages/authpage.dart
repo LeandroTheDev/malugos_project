@@ -176,6 +176,7 @@ class _AuthPageState extends State<AuthPage> {
           UserPreferences.setUsername(options.username);
           UserPreferences.setRemember(options.rememberLogin);
         }
+        options.changeIsLoading();
         // ignore: use_build_context_synchronously
         return Navigator.of(context).pushReplacementNamed('/homepage');
       } else {

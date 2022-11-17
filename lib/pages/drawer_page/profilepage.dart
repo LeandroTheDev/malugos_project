@@ -231,7 +231,11 @@ class ProfilePage extends StatelessWidget {
                             width: double.infinity,
                             height: 50,
                             child: TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                UserPreferences.setRemember(false);
+                                Navigator.pushReplacementNamed(
+                                    context, '/authpage');
+                              },
                               //"Historico"
                               child: Row(
                                 children: [
