@@ -15,19 +15,63 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
-  String username = '';
+  String email = '';
   String password = '';
+  String username = '';
+  int id = 0;
   bool remember = false;
+  bool jumpAuth = false;
   //Starting the page
   @override
   void initState() {
     super.initState();
     //Load datas
-    username = UserPreferences.getUsername() ?? '';
+    email = UserPreferences.getEmail() ?? '';
     password = UserPreferences.getPassword() ?? '';
+    username = UserPreferences.getUsername() ?? '';
+    id = UserPreferences.getId() ?? 0;
     remember = UserPreferences.getRemember() ?? false;
+    //check if credentials matchs
     if (remember) {
-      print(remember);
+      // ignore: unused_local_variable
+      Future mysql = MySqlConnection.connect(
+        ConnectionSettings(
+          host: MySqlData.adress,
+          port: MySqlData.port,
+          user: MySqlData.username,
+          db: MySqlData.data,
+          password: MySqlData.password,
+        ),
+      ).then((mysql) async {
+        dynamic checkEmail =
+            await mysql.query('select email from users where id = ?', [id]);
+        checkEmail =
+            checkEmail.toString().replaceFirst('(Fields: {email: ', '');
+        checkEmail = checkEmail.substring(0, checkEmail.length - 2);
+        //pickup password
+        dynamic checkPassword =
+            await mysql.query('select password from users where id = ?', [id]);
+        checkPassword =
+            checkPassword.toString().replaceFirst('(Fields: {password: ', '');
+        checkPassword = checkPassword.substring(0, checkPassword.length - 2);
+
+        if (email == checkEmail) {
+          if (password == checkPassword) {
+            // ignore: use_build_context_synchronously
+            final options = Provider.of<Options>(context, listen: false);
+            //Add in the provider all informations
+            options.changeUserEmail(email);
+            options.changeUserPassword(password);
+            options.changeUserName(username);
+            options.changeId(id);
+            options.changeRememberLogin();
+            options.changeCredentialsMatch();
+            Future(
+              () => Navigator.of(context).pushReplacementNamed('/homepage'),
+            );
+          }
+        }
+      });
     }
   }
 
@@ -42,27 +86,27 @@ class _AuthPageState extends State<AuthPage> {
     Future<bool> mysqlconnect() async {
       //Start Connection with DataBase
       MySqlConnection mysql = await MySqlConnection.connect(
-          ConnectionSettings(
-            host: MySqlData.adress,
-            port: MySqlData.port,
-            user: MySqlData.username,
-            db: MySqlData.data,
-            password: MySqlData.password,
-          ),
-        );
+        ConnectionSettings(
+          host: MySqlData.adress,
+          port: MySqlData.port,
+          user: MySqlData.username,
+          db: MySqlData.data,
+          password: MySqlData.password,
+        ),
+      );
       int id = 0;
 
       //Test if credentials will Match
       while (true) {
         id++;
         //pickup email
-        dynamic email = await mysql
-            .query('select email from users where id = ?', [id]);
+        dynamic email =
+            await mysql.query('select email from users where id = ?', [id]);
         email = email.toString().replaceFirst('(Fields: {email: ', '');
         email = email.substring(0, email.length - 2);
         //pickup password
-        dynamic password = await mysql
-            .query('select password from users where id = ?', [id]);
+        dynamic password =
+            await mysql.query('select password from users where id = ?', [id]);
         password = password.toString().replaceFirst('(Fields: {password: ', '');
         password = password.substring(0, password.length - 2);
         //Verify if Email is valid
@@ -91,9 +135,10 @@ class _AuthPageState extends State<AuthPage> {
                 username.toString().replaceFirst('(Fields: {username: ', '');
             username = username.substring(0, username.length - 2);
             //Add in the provider all informations
+            options.changeUserEmail(email);
+            options.changeUserPassword(password);
             options.changeUserName(username);
-            options.changeUserEmail(options.emailLogin.text);
-            options.changeUserPassword(options.passwordLogin.text);
+            options.changeId(id);
             options.changeCredentialsMatch();
             //Create the userdata on database
             try {
@@ -102,12 +147,12 @@ class _AuthPageState extends State<AuthPage> {
               await mysql.close();
               return true;
             } catch (error) {
-              print(error);
               if (error.toString().contains('1062')) {
                 options.changeId(id);
                 await mysql.close();
                 return true;
               } else {
+                await mysql.close();
                 errorMsg =
                     'Ops aconteceu um erro na hora de confirmar sua identidade';
                 return false;
@@ -126,8 +171,9 @@ class _AuthPageState extends State<AuthPage> {
       }
       if (credentials) {
         if (options.rememberLogin) {
-          UserPreferences.setUsername(options.username);
+          UserPreferences.setEmail(options.email);
           UserPreferences.setPassword(options.password);
+          UserPreferences.setUsername(options.username);
           UserPreferences.setRemember(options.rememberLogin);
         }
         // ignore: use_build_context_synchronously

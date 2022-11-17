@@ -1,11 +1,11 @@
 import 'package:mysql1/mysql1.dart';
 
 class MySqlData {
-  static String username = 'guest';
-  static String adress = '192.168.1.25';
+  static String username = 'root';
+  static String adress = 'localhost';
   static int port = 3306;
   static String data = 'malugos';
-  static String password = 'i@Dhs4e5E%fGz&ngbY2m&AGRCVlskBUrrCnsYFUze&fhxehb#j';
+  static String password = 'password';
 
   //Returns the features Horizontal Length
   static Future<int> featureLenghtH(id) async {

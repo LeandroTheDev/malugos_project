@@ -98,26 +98,38 @@ class Options with ChangeNotifier {
 class UserPreferences {
   static late SharedPreferences _preferences;
 
-  static const _username = 'username';
+  static const _email = 'email';
   static const _password = 'password';
-  static const _remember = false;
+  static const _username = 'username';
+  static const _id = '0';
+  static const _remember = 'false';
 
   static Future init() async =>
       _preferences = await SharedPreferences.getInstance();
 
-  static Future setUsername(String username) async {
-    await _preferences.setString(_username, username);
+  static Future setEmail(String email) async {
+    await _preferences.setString(_email, email);
   }
 
   static Future setPassword(String password) async {
     await _preferences.setString(_password, password);
   }
 
-  static Future setRemember(bool value) async {
-    await _preferences.setBool(_remember.toString(), value);
+  static Future setUsername(String username) async {
+    await _preferences.setString(_username, username);
   }
 
-  static String? getUsername() => _preferences.getString(_username);
+  static Future setId(int id) async {
+    await _preferences.setInt(_id, id);
+  }
+
+  static Future setRemember(bool value) async {
+    await _preferences.setBool(_remember, value);
+  }
+
+  static String? getEmail() => _preferences.getString(_email);
   static String? getPassword() => _preferences.getString(_password);
-  static bool? getRemember() => _preferences.getBool(_remember.toString());
+  static String? getUsername() => _preferences.getString(_username);
+  static int? getId() => _preferences.getInt(_id);
+  static bool? getRemember() => _preferences.getBool(_remember);
 }
