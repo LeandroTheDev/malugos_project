@@ -96,7 +96,14 @@ class _HomePageState extends State<HomePage> {
 
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      drawer: const AppDrawer(),
+      backgroundColor: Colors.black,
+      //Drawer
+      drawer: Theme(
+        data: Theme.of(context).copyWith(
+          canvasColor: Colors.transparent,
+        ),
+        child: const AppDrawer(),
+      ),
       //AppBar
       appBar: AppBar(
         centerTitle: true,
@@ -121,7 +128,7 @@ class _HomePageState extends State<HomePage> {
                 height: 40,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: Colors.black,
+                  color: Colors.lightGreen,
                 ),
                 child: FittedBox(
                   child: Padding(
@@ -130,14 +137,14 @@ class _HomePageState extends State<HomePage> {
                       children: const [
                         Icon(
                           Icons.shopping_cart,
-                          color: Colors.lightGreen,
+                          color: Color.fromARGB(255, 56, 56, 56),
                         ),
                         SizedBox(width: 5),
                         Text(
                           'Destaques',
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                            color: Colors.lightGreen,
+                            color: Color.fromARGB(255, 56, 56, 56),
                             fontWeight: FontWeight.bold,
                             fontSize: 13,
                           ),
@@ -217,7 +224,7 @@ class _HomePageState extends State<HomePage> {
                 height: 40,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: Colors.black,
+                  color: Colors.lightGreen,
                 ),
                 child: FittedBox(
                   child: Padding(
@@ -226,14 +233,14 @@ class _HomePageState extends State<HomePage> {
                       children: const [
                         Icon(
                           Icons.shop,
-                          color: Colors.lightGreen,
+                          color: Color.fromARGB(255, 56, 56, 56),
                         ),
                         SizedBox(width: 5),
                         Text(
                           'Mais Vendidos',
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                            color: Colors.lightGreen,
+                            color: Color.fromARGB(255, 56, 56, 56),
                             fontWeight: FontWeight.bold,
                             fontSize: 13,
                           ),
@@ -289,7 +296,7 @@ class _HomePageState extends State<HomePage> {
                 height: 40,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: Colors.black,
+                  color: Colors.lightGreen,
                 ),
                 child: FittedBox(
                   child: Padding(
@@ -298,14 +305,14 @@ class _HomePageState extends State<HomePage> {
                       children: const [
                         Icon(
                           Icons.sell_outlined,
-                          color: Colors.lightGreen,
+                          color: Color.fromARGB(255, 56, 56, 56),
                         ),
                         SizedBox(width: 5),
                         Text(
                           'Promoção',
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                            color: Colors.lightGreen,
+                            color: Color.fromARGB(255, 56, 56, 56),
                             fontWeight: FontWeight.bold,
                             fontSize: 13,
                           ),

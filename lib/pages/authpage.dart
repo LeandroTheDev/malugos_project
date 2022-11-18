@@ -1,10 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:malugos_project/data/mysqldata.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:provider/provider.dart';
-
 import '../data/provider.dart';
 
 class AuthPage extends StatefulWidget {
@@ -221,169 +219,172 @@ class _AuthPageState extends State<AuthPage> {
             width: double.infinity,
             color: Colors.lightGreen,
           ),
-          Column(
-            children: [
-              //Malugos Image
-              Padding(
-                padding: const EdgeInsets.only(top: 30),
-                child: SizedBox(
-                  height: screenSize.height * 0.15,
-                  width: double.infinity,
-                  child: Image.asset("assets/malugosicon.png"),
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                //Malugos Image
+                Padding(
+                  padding: const EdgeInsets.only(top: 30),
+                  child: SizedBox(
+                    height: screenSize.height * 0.15,
+                    width: double.infinity,
+                    child: Image.asset("assets/malugosicon.png"),
+                  ),
                 ),
-              ),
-              //Entrar text
-              Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: Row(
-                  children: const [
-                    Spacer(),
-                    Text(
-                      'Entrar',
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Spacer(),
-                  ],
-                ),
-              ),
-              //Login Scene
-              SizedBox(
-                width: screenSize.width * 0.85,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    //Email Text
-                    const Text(
-                      'Email',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    //Email Input
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5),
-                      child: Container(
-                        alignment: Alignment.centerLeft,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: const Color.fromARGB(255, 144, 207, 71),
+                //Entrar text
+                Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child: Row(
+                    children: const [
+                      Spacer(),
+                      Text(
+                        'Entrar',
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
                         ),
-                        height: 40,
-                        width: screenSize.width * 0.85,
-                        child: SizedBox(
-                          height: 33,
+                      ),
+                      Spacer(),
+                    ],
+                  ),
+                ),
+                //Login Scene
+                SizedBox(
+                  width: screenSize.width * 0.85,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      //Email Text
+                      const Text(
+                        'Email',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      //Email Input
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        child: Container(
+                          alignment: Alignment.centerLeft,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: const Color.fromARGB(255, 144, 207, 71),
+                          ),
+                          height: 40,
                           width: screenSize.width * 0.85,
-                          child: TextFormField(
-                            controller: options.emailLogin,
-                            keyboardType: TextInputType.emailAddress,
-                            decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              contentPadding: EdgeInsets.symmetric(vertical: 0),
-                              prefixIcon: Icon(
-                                Icons.email,
-                                color: Color.fromARGB(255, 230, 230, 230),
+                          child: SizedBox(
+                            height: 33,
+                            width: screenSize.width * 0.85,
+                            child: TextFormField(
+                              controller: options.emailLogin,
+                              keyboardType: TextInputType.emailAddress,
+                              decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                contentPadding:
+                                    EdgeInsets.symmetric(vertical: 0),
+                                prefixIcon: Icon(
+                                  Icons.email,
+                                  color: Color.fromARGB(255, 230, 230, 230),
+                                ),
+                                hintText: 'E-mail',
                               ),
-                              hintText: 'E-mail',
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    //Senha Text
-                    const Text(
-                      'Senha',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    //Senha Input
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5),
-                      child: Container(
-                        alignment: Alignment.centerLeft,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: const Color.fromARGB(255, 144, 207, 71),
+                      //Senha Text
+                      const Text(
+                        'Senha',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
                         ),
-                        height: 40,
-                        width: screenSize.width * 0.85,
-                        child: SizedBox(
-                          height: 33,
+                      ),
+                      //Senha Input
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        child: Container(
+                          alignment: Alignment.centerLeft,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: const Color.fromARGB(255, 144, 207, 71),
+                          ),
+                          height: 40,
                           width: screenSize.width * 0.85,
-                          child: TextFormField(
-                            controller: options.passwordLogin,
-                            obscureText: true,
-                            decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              contentPadding: EdgeInsets.all(0),
-                              prefixIcon: Icon(
-                                Icons.lock,
-                                color: Color.fromARGB(255, 230, 230, 230),
+                          child: SizedBox(
+                            height: 33,
+                            width: screenSize.width * 0.85,
+                            child: TextFormField(
+                              controller: options.passwordLogin,
+                              obscureText: true,
+                              decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                contentPadding: EdgeInsets.all(0),
+                                prefixIcon: Icon(
+                                  Icons.lock,
+                                  color: Color.fromARGB(255, 230, 230, 230),
+                                ),
+                                hintText: 'Senha',
                               ),
-                              hintText: 'Senha',
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 10),
-                    //Remember
-                    Row(
-                      children: [
-                        Checkbox(
-                          value: options.rememberLogin,
-                          fillColor:
-                              MaterialStateProperty.all<Color>(Colors.white),
-                          checkColor: Colors.lightGreen,
-                          onChanged: (_) {
-                            optionsW.changeRememberLogin();
-                          },
-                        ),
-                        const Text(
-                          'Lembrar',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 15),
-                    //Login Button
-                    Container(
-                      alignment: Alignment.center,
-                      child: options.isLoading
-                          ? const CircularProgressIndicator(
-                              color: Colors.white,
-                            )
-                          : ElevatedButton(
-                              //Button Color
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    const Color.fromARGB(255, 144, 207, 71),
-                              ),
-                              onPressed: () {
-                                optionsW.changeIsLoading();
-                                authProcess();
-                              },
-                              //Button Text
-                              child: Container(
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20)),
-                                height: 20,
-                                width: screenSize.width * 0.7,
-                                child: const Text(
-                                  'LOGIN',
-                                  style: TextStyle(letterSpacing: 2),
+                      const SizedBox(height: 10),
+                      //Remember
+                      Row(
+                        children: [
+                          Checkbox(
+                            value: options.rememberLogin,
+                            fillColor:
+                                MaterialStateProperty.all<Color>(Colors.white),
+                            checkColor: Colors.lightGreen,
+                            onChanged: (_) {
+                              optionsW.changeRememberLogin();
+                            },
+                          ),
+                          const Text(
+                            'Lembrar',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 15),
+                      //Login Button
+                      Container(
+                        alignment: Alignment.center,
+                        child: options.isLoading
+                            ? const CircularProgressIndicator(
+                                color: Colors.white,
+                              )
+                            : ElevatedButton(
+                                //Button Color
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor:
+                                      const Color.fromARGB(255, 144, 207, 71),
+                                ),
+                                onPressed: () {
+                                  optionsW.changeIsLoading();
+                                  authProcess();
+                                },
+                                //Button Text
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20)),
+                                  height: 20,
+                                  width: screenSize.width * 0.7,
+                                  child: const Text(
+                                    'LOGIN',
+                                    style: TextStyle(letterSpacing: 2),
+                                  ),
                                 ),
                               ),
-                            ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),

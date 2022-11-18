@@ -79,7 +79,7 @@ class Options with ChangeNotifier {
 
   //Configuration
   bool _notifications = false;
-  bool _isLoading = true;
+  bool _isLoading = false;
   String _featureCategory = 'Tudo';
 
   bool get notifications => _notifications;
