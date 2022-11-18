@@ -71,6 +71,19 @@ class _AuthPageState extends State<AuthPage> {
             );
           }
         }
+        // ignore: use_build_context_synchronously
+        Provider.of<Options>(context, listen: false).changeIsLoading();
+        //Error treatment
+      }).catchError((error) {
+        Provider.of<Options>(context, listen: false).changeIsLoading();
+        showDialog(
+            context: context,
+            builder: (context) {
+              return const AlertDialog(
+                title: Text(':('),
+                content: Text('Não foi possivel conectar ao servidor'),
+              );
+            });
       });
     }
   }
@@ -85,15 +98,22 @@ class _AuthPageState extends State<AuthPage> {
     //Start Login
     Future<bool> mysqlconnect() async {
       //Start Connection with DataBase
-      MySqlConnection mysql = await MySqlConnection.connect(
-        ConnectionSettings(
-          host: MySqlData.adress,
-          port: MySqlData.port,
-          user: MySqlData.username,
-          db: MySqlData.data,
-          password: MySqlData.password,
-        ),
-      );
+      MySqlConnection mysql;
+      try {
+        mysql = await MySqlConnection.connect(
+          ConnectionSettings(
+            host: MySqlData.adress,
+            port: MySqlData.port,
+            user: MySqlData.username,
+            db: MySqlData.data,
+            password: MySqlData.password,
+          ),
+        );
+        //Error treatment
+      } catch (error) {
+        errorMsg = 'Não foi possivel conectar ao servidor';
+        return false;
+      }
       int id = 0;
 
       //Test if credentials will Match

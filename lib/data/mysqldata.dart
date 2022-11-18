@@ -1,7 +1,7 @@
 import 'package:mysql1/mysql1.dart';
 
 class MySqlData {
-  static String username = 'root';
+  static String username = 'admin';
   static String adress = 'localhost';
   static int port = 3306;
   static String data = 'malugos';
