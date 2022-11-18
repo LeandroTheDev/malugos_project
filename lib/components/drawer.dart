@@ -17,20 +17,28 @@ class AppDrawer extends StatelessWidget {
           Container(
             color: Theme.of(context).primaryColor,
             width: double.infinity,
-            height: screenSize.height * 0.10,
-            child: Row(
-              children: [
-                const SizedBox(width: 10),
-                const Icon(Icons.person_outline),
-                const SizedBox(width: 10),
-                SizedBox(
-                  width: screenSize.width * 0.35,
-                  child: Text(
-                    'Olá ${option.username}',
-                    overflow: TextOverflow.ellipsis,
+            height: screenSize.height * 0.15,
+            child: FittedBox(
+              child: Column(
+                children: [
+                  SizedBox(height: screenSize.height * 0.03),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.person_outline, size: 10),
+                        Text(
+                          'Olá ${option.username}',
+                          style: TextStyle(fontSize: 8),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                  const SizedBox(
+                    height: 2,
+                  ),
+                ],
+              ),
             ),
           ),
           const SizedBox(height: 10),
@@ -43,13 +51,14 @@ class AppDrawer extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pushNamed('/categorypage');
               },
-              child: Row(
-                children: const [
-                  SizedBox(width: 5),
-                  Icon(Icons.category),
-                  SizedBox(width: 5),
-                  Text("Categorias"),
-                ],
+              child: FittedBox(
+                child: Row(
+                  children: const [
+                    Icon(Icons.category),
+                    SizedBox(width: 5),
+                    Text('Categorias'),
+                  ],
+                ),
               ),
             ),
           ),
@@ -63,13 +72,14 @@ class AppDrawer extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pushNamed('/profilepage');
               },
-              child: Row(
-                children: const [
-                  SizedBox(width: 5),
-                  Icon(Icons.person),
-                  SizedBox(width: 5),
-                  Text("Perfil"),
-                ],
+              child: FittedBox(
+                child: Row(
+                  children: const [
+                    Icon(Icons.person),
+                    SizedBox(width: 5),
+                    Text('Perfil'),
+                  ],
+                ),
               ),
             ),
           ),
@@ -83,13 +93,14 @@ class AppDrawer extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pushNamed('/configurationpage');
               },
-              child: Row(
-                children: const [
-                  SizedBox(width: 5),
-                  Icon(Icons.settings),
-                  SizedBox(width: 5),
-                  Text("Configurações"),
-                ],
+              child: FittedBox(
+                child: Row(
+                  children: const [
+                    Icon(Icons.settings),
+                    SizedBox(width: 5),
+                    Text('Configurações'),
+                  ],
+                ),
               ),
             ),
           ),

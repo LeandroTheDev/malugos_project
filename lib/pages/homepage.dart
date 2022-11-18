@@ -123,44 +123,47 @@ class _HomePageState extends State<HomePage> {
                   borderRadius: BorderRadius.circular(20),
                   color: Colors.black,
                 ),
-                child: Row(
-                  children: const [
-                    Spacer(),
-                    Icon(
-                      Icons.shopping_cart,
-                      color: Colors.lightGreen,
+                child: FittedBox(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: const [
+                        Icon(
+                          Icons.shopping_cart,
+                          color: Colors.lightGreen,
+                        ),
+                        SizedBox(width: 5),
+                        Text(
+                          'Destaques',
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: Colors.lightGreen,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13,
+                          ),
+                        ),
+                      ],
                     ),
-                    SizedBox(width: 5),
-                    Text(
-                      'Destaques',
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: Colors.lightGreen,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13,
-                      ),
-                    ),
-                    Spacer(),
-                  ],
+                  ),
                 ),
               ),
             ),
             const SizedBox(height: 30),
             //Features Horizontal View
-            SizedBox(
-              width: screenSize.width,
-              height: 220,
-              child: FutureBuilder(
-                future: pushProducts(1),
-                builder: (BuildContext context, future) {
-                  if (future.data == null) {
-                    return const Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 100, vertical: 40),
-                      child: CircularProgressIndicator(),
-                    );
-                  } else {
-                    return ListView.builder(
+            FutureBuilder(
+              future: pushProducts(1),
+              builder: (BuildContext context, future) {
+                if (future.data == null) {
+                  return const Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 100, vertical: 40),
+                    child: CircularProgressIndicator(),
+                  );
+                } else {
+                  return SizedBox(
+                    width: screenSize.width,
+                    height: screenSize.height * 0.25,
+                    child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: future.data.length,
                       itemBuilder: (context, i) {
@@ -189,15 +192,17 @@ class _HomePageState extends State<HomePage> {
                                 future.data[i].name,
                                 future.data[i].price,
                                 future.data[i].imageURL,
+                                screenSize.width,
+                                screenSize.height * 0.25,
                               ),
                             ),
                           ),
                         );
                       },
-                    );
-                  }
-                },
-              ),
+                    ),
+                  );
+                }
+              },
             ),
             const SizedBox(height: 30),
             const Divider(),
@@ -214,25 +219,28 @@ class _HomePageState extends State<HomePage> {
                   borderRadius: BorderRadius.circular(20),
                   color: Colors.black,
                 ),
-                child: Row(
-                  children: const [
-                    Spacer(),
-                    Icon(
-                      Icons.shop,
-                      color: Colors.lightGreen,
+                child: FittedBox(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: const [
+                        Icon(
+                          Icons.shop,
+                          color: Colors.lightGreen,
+                        ),
+                        SizedBox(width: 5),
+                        Text(
+                          'Mais Vendidos',
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: Colors.lightGreen,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13,
+                          ),
+                        ),
+                      ],
                     ),
-                    SizedBox(width: 5),
-                    Text(
-                      'Mais Vendidos',
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: Colors.lightGreen,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13,
-                      ),
-                    ),
-                    Spacer(),
-                  ],
+                  ),
                 ),
               ),
             ),
@@ -242,10 +250,7 @@ class _HomePageState extends State<HomePage> {
                 future: pushImages(),
                 builder: (context, future) {
                   if (future.data == null) {
-                    return const SizedBox(
-                        width: 150,
-                        height: 150,
-                        child: CircularProgressIndicator());
+                    return const CircularProgressIndicator();
                   } else {
                     return TextButton(
                       onPressed: () {},
@@ -286,25 +291,28 @@ class _HomePageState extends State<HomePage> {
                   borderRadius: BorderRadius.circular(20),
                   color: Colors.black,
                 ),
-                child: Row(
-                  children: const [
-                    Spacer(),
-                    Icon(
-                      Icons.sell_outlined,
-                      color: Colors.lightGreen,
+                child: FittedBox(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: const [
+                        Icon(
+                          Icons.sell_outlined,
+                          color: Colors.lightGreen,
+                        ),
+                        SizedBox(width: 5),
+                        Text(
+                          'Promoção',
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: Colors.lightGreen,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13,
+                          ),
+                        ),
+                      ],
                     ),
-                    SizedBox(width: 5),
-                    Text(
-                      'Promoção',
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: Colors.lightGreen,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13,
-                      ),
-                    ),
-                    Spacer(),
-                  ],
+                  ),
                 ),
               ),
             ),
@@ -312,11 +320,7 @@ class _HomePageState extends State<HomePage> {
             //Promotions Horizontal View
             FutureBuilder(builder: (context, future) {
               if (future.data == null) {
-                return const SizedBox(
-                  width: 200,
-                  height: 200,
-                  child: CircularProgressIndicator(),
-                );
+                return const CircularProgressIndicator();
               } else {
                 return ListView.builder(
                   itemCount: 1,
