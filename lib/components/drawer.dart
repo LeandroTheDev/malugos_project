@@ -46,9 +46,10 @@ class AppDrawer extends StatelessWidget {
             //Category button
             SizedBox(
               height: 30,
-              width: screenSize.width * 0.50,
+              width: screenSize.width * 0.40,
               child: ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.lightGreen),
                 onPressed: () {
                   Navigator.of(context).pushNamed('/categorypage');
                 },
@@ -67,9 +68,10 @@ class AppDrawer extends StatelessWidget {
             //Profile button
             SizedBox(
               height: 30,
-              width: screenSize.width * 0.50,
+              width: screenSize.width * 0.40,
               child: ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.lightGreen),
                 onPressed: () {
                   Navigator.of(context).pushNamed('/profilepage');
                 },
@@ -88,9 +90,10 @@ class AppDrawer extends StatelessWidget {
             //Configuration button
             SizedBox(
               height: 30,
-              width: screenSize.width * 0.50,
+              width: screenSize.width * 0.40,
               child: ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.lightGreen),
                 onPressed: () {
                   Navigator.of(context).pushNamed('/configurationpage');
                 },

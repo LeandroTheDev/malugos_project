@@ -96,7 +96,6 @@ class _HomePageState extends State<HomePage> {
 
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.black,
       //Drawer
       drawer: Theme(
         data: Theme.of(context).copyWith(

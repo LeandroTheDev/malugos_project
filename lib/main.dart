@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:malugos_project/data/provider.dart';
 import 'package:malugos_project/pages/authpage.dart';
+import 'package:malugos_project/pages/authremember.dart';
 import 'package:malugos_project/pages/drawer_page/categorypage.dart';
 import 'package:malugos_project/pages/drawer_page/configurationpage.dart';
 import 'package:malugos_project/pages/drawer_page/profilepage.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Malugos',
       theme: ThemeData(
+        scaffoldBackgroundColor: const Color.fromARGB(255, 24, 24, 24),
         primarySwatch: Colors.lightGreen,
       ),
       routes: {
@@ -53,6 +55,6 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const AuthPage();
+    return const AuthRemember();
   }
 }
