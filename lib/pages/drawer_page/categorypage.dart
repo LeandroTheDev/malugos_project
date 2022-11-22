@@ -30,29 +30,34 @@ class _CategoryPageState extends State<CategoryPage> {
                 child: SizedBox(
                   width: screenSize.width,
                   height: 100,
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 60,
-                        height: 60,
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(52, 255, 255, 255),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: const Icon(
-                          Icons.keyboard_outlined,
-                          size: 50,
-                        ),
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    child: FittedBox(
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 60,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              color: const Color.fromARGB(52, 255, 255, 255),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: const Icon(
+                              Icons.keyboard_outlined,
+                              size: 50,
+                            ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 15.0),
+                            child: Text(
+                              'Teclados',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
                       ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 15.0),
-                        child: Text(
-                          'Teclados',
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               ),
@@ -69,29 +74,34 @@ class _CategoryPageState extends State<CategoryPage> {
                 child: SizedBox(
                   width: screenSize.width,
                   height: 100,
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 60,
-                        height: 60,
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(52, 255, 255, 255),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: const Icon(
-                          Icons.mouse_outlined,
-                          size: 50,
-                        ),
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    child: FittedBox(
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 60,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              color: const Color.fromARGB(52, 255, 255, 255),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: const Icon(
+                              Icons.mouse_outlined,
+                              size: 50,
+                            ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 15.0),
+                            child: Text(
+                              'Mouses',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
                       ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 15.0),
-                        child: Text(
-                          'Mouses',
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               ),
@@ -108,29 +118,34 @@ class _CategoryPageState extends State<CategoryPage> {
                 child: SizedBox(
                   width: screenSize.width,
                   height: 100,
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 60,
-                        height: 60,
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(52, 255, 255, 255),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: const Icon(
-                          Icons.monitor,
-                          size: 50,
-                        ),
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    child: FittedBox(
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 60,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              color: const Color.fromARGB(52, 255, 255, 255),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: const Icon(
+                              Icons.monitor,
+                              size: 50,
+                            ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 15.0),
+                            child: Text(
+                              'Monitores',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
                       ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 15.0),
-                        child: Text(
-                          'Monitores',
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               ),

@@ -143,67 +143,79 @@ class ProfilePage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         child: SizedBox(
-                          width: double.infinity,
+                          width: screenSize.width,
                           child: TextButton(
                             onPressed: () {},
                             //"Historico"
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: 40,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color:
-                                        const Color.fromARGB(52, 255, 255, 255),
-                                  ),
-                                  child: const Icon(
-                                    Icons.history,
-                                    color: Colors.black,
-                                  ),
+                            child: Container(
+                              alignment: Alignment.centerLeft,
+                              child: FittedBox(
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      width: 40,
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: const Color.fromARGB(
+                                            52, 255, 255, 255),
+                                      ),
+                                      child: const Icon(
+                                        Icons.history,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 15),
+                                      child: Text(
+                                        'Histórico',
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                const Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 15),
-                                  child: Text(
-                                    'Histórico',
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
                           ),
                         ),
                       ),
                       //Details
                       SizedBox(
-                        width: double.infinity,
+                        width: screenSize.width,
                         height: 50,
                         child: TextButton(
                           onPressed: () {},
                           //"Detalhes"
-                          child: Row(
-                            children: [
-                              Container(
-                                width: 40,
-                                height: 40,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color:
-                                      const Color.fromARGB(52, 255, 255, 255),
-                                ),
-                                child: const Icon(
-                                  Icons.settings,
-                                  color: Colors.black,
-                                ),
+                          child: Container(
+                            alignment: Alignment.centerLeft,
+                            child: FittedBox(
+                              child: Row(
+                                children: [
+                                  Container(
+                                    width: 40,
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: const Color.fromARGB(
+                                          52, 255, 255, 255),
+                                    ),
+                                    child: const Icon(
+                                      Icons.settings,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 15),
+                                    child: Text(
+                                      'Detalhes',
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 15),
-                                child: Text(
-                                  'Detalhes',
-                                  style: TextStyle(color: Colors.black),
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
                         ),
                       ),
@@ -211,34 +223,40 @@ class ProfilePage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         child: SizedBox(
-                          width: double.infinity,
+                          width: screenSize.width,
                           height: 50,
                           child: TextButton(
                             onPressed: () {},
-                            //"Historico"
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: 40,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color:
-                                        const Color.fromARGB(52, 255, 255, 255),
-                                  ),
-                                  child: const Icon(
-                                    Icons.add_home_outlined,
-                                    color: Colors.black,
-                                  ),
+                            //"Locais de Entrega"
+                            child: Container(
+                              alignment: Alignment.centerLeft,
+                              child: FittedBox(
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      width: 40,
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: const Color.fromARGB(
+                                            52, 255, 255, 255),
+                                      ),
+                                      child: const Icon(
+                                        Icons.add_home_outlined,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 15),
+                                      child: Text(
+                                        'Locais de Entrega',
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                const Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 15),
-                                  child: Text(
-                                    'Locais de Entrega',
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
                           ),
                         ),
@@ -248,7 +266,7 @@ class ProfilePage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: SizedBox(
-                          width: double.infinity,
+                          width: screenSize.width,
                           height: 50,
                           child: TextButton(
                             onPressed: () {
@@ -260,30 +278,36 @@ class ProfilePage extends StatelessWidget {
                               Navigator.pushReplacementNamed(
                                   context, '/authpage');
                             },
-                            //"Historico"
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: 40,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color:
-                                        const Color.fromARGB(52, 255, 255, 255),
-                                  ),
-                                  child: const Icon(
-                                    Icons.logout,
-                                    color: Colors.black,
-                                  ),
+                            //"Exit"
+                            child: Container(
+                              alignment: Alignment.centerLeft,
+                              child: FittedBox(
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      width: 40,
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: const Color.fromARGB(
+                                            52, 255, 255, 255),
+                                      ),
+                                      child: const Icon(
+                                        Icons.logout,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 15),
+                                      child: Text(
+                                        'Sair',
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                const Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 15),
-                                  child: Text(
-                                    'Sair',
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
                           ),
                         ),

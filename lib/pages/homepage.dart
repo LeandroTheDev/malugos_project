@@ -3,8 +3,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:malugos_project/components/drawer.dart';
 import 'package:malugos_project/components/productitem_h.dart';
+import 'package:malugos_project/components/productitem_show.dart';
 import 'package:malugos_project/data/productsdata.dart';
-import 'package:malugos_project/pages/home_page/featurepage.dart';
 import 'package:mysql1/mysql1.dart';
 import '../data/mysqldata.dart';
 
@@ -82,6 +82,7 @@ class _HomePageState extends State<HomePage> {
         'https://www.malugos.com.br/templates/g5_helium/custom/images/banners/Banner%20headset.png',
       ];
       //Estabilish connection
+      // ignore: unused_local_variable
       final mysql = await MySqlConnection.connect(
         ConnectionSettings(
           host: MySqlData.adress,
