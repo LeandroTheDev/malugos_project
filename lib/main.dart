@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:malugos_project/data/provider.dart';
 import 'package:malugos_project/pages/authpage.dart';
 import 'package:malugos_project/pages/authremember.dart';
+import 'package:malugos_project/pages/drawer_page/category_pages/keybord_category.dart';
 import 'package:malugos_project/pages/drawer_page/categorypage.dart';
 import 'package:malugos_project/pages/drawer_page/configurationpage.dart';
 import 'package:malugos_project/pages/drawer_page/profilepage.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
         '/configurationpage': (context) => const ConfigurationPage(),
         '/profilepage': (context) => const ProfilePage(),
         '/featurepage': (context) => const FeaturePage(),
+        '/keyboardCategory': (context) => const KeybordCategory(),
       },
       home: const MyHomePage(),
     );

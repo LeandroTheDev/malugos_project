@@ -70,6 +70,7 @@ class _AuthRememberState extends State<AuthRemember> {
         }
         //Error treatment
       }).catchError((error) {
+        Navigator.of(context).pushReplacementNamed('/authpage');
         showDialog(
             context: context,
             builder: (context) {

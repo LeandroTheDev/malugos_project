@@ -57,4 +57,20 @@ class MySqlData {
     }
     return result;
   }
+
+  //Returns selected category items
+  static Future<List<String>> pushCategoryItem([data, sort, category]) async {
+    //Start Connection with DataBase
+    final mysql = await MySqlConnection.connect(
+      ConnectionSettings(
+        host: MySqlData.adress,
+        port: MySqlData.port,
+        user: MySqlData.username,
+        db: MySqlData.data,
+        password: MySqlData.password,
+      ),
+    );
+    data = ['test'];
+    return data;
+  }
 }

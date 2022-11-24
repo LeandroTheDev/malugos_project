@@ -3,7 +3,6 @@ import 'package:malugos_project/components/productitem_show.dart';
 import 'package:malugos_project/data/productsdata.dart';
 import 'package:malugos_project/data/provider.dart';
 import 'package:mysql1/mysql1.dart';
-import 'package:provider/provider.dart';
 import '../../components/productitem_v.dart';
 import '../../data/mysqldata.dart';
 
@@ -20,9 +19,8 @@ class _FeaturePageState extends State<FeaturePage> {
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     final screenSizeHeight = screenSize.height - kBottomNavigationBarHeight;
-    final optionsW = Provider.of<Options>(context, listen: true);
 
-    Future pushProducts([id, category]) async {
+    Future pushProducts([id]) async {
       //Estabilish connection
       final mysql = await MySqlConnection.connect(
         ConnectionSettings(
@@ -90,7 +88,7 @@ class _FeaturePageState extends State<FeaturePage> {
         children: [
           //Show features products
           FutureBuilder(
-              future: pushProducts(1, optionsW.featureCategory),
+              future: pushProducts(1),
               builder: (context, future) {
                 if (future.data == null) {
                   return Container(

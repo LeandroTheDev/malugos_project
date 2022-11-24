@@ -26,7 +26,9 @@ class _CategoryPageState extends State<CategoryPage> {
                 style: ElevatedButton.styleFrom(
                   elevation: 10,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/keyboardCategory');
+                },
                 child: SizedBox(
                   width: screenSize.width,
                   height: 100,
