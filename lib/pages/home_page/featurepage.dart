@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:malugos_project/components/productitem_show.dart';
 import 'package:malugos_project/data/productsdata.dart';
-import 'package:malugos_project/data/provider.dart';
 import 'package:mysql1/mysql1.dart';
 import '../../components/productitem_v.dart';
 import '../../data/mysqldata.dart';

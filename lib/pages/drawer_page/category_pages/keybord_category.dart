@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:malugos_project/components/productitem_show.dart';
+import 'package:malugos_project/components/productitem_v.dart';
 import 'package:malugos_project/data/mysqldata.dart';
 import 'package:malugos_project/data/provider.dart';
 import 'package:provider/provider.dart';
+
+import '../../../data/productsdata.dart';
 
 class KeybordCategory extends StatelessWidget {
   const KeybordCategory({super.key});
@@ -9,7 +13,8 @@ class KeybordCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    List<String> data = [];
+    List<Product> data = [];
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Teclados'),
@@ -21,6 +26,7 @@ class KeybordCategory extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 15.0),
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
+              //Sort
               child: Row(
                 children: [
                   SizedBox(width: screenSize.width * 0.05),
@@ -139,21 +145,40 @@ class KeybordCategory extends StatelessWidget {
               ),
             ),
           ),
+          // Products
           FutureBuilder(
-            future: MySqlData.pushCategoryItem(
-              data,
-              Provider.of<Options>(context, listen: false).sort,
-              'teclados',
-            ),
+            future: MySqlData.pushCategoryItem(),
             builder: ((context, future) {
               if (future.hasData) {
                 return Expanded(
                   child: ListView.builder(
-                    itemCount: future.data?.length,
+                    itemCount: future.data!.length,
                     itemBuilder: ((context, index) {
-                      return const Text(
-                        'data',
-                        style: TextStyle(color: Colors.white),
+                      return Container(
+                        decoration: BoxDecoration(
+                            color: Colors.lightGreen,
+                            borderRadius: BorderRadius.circular(30)),
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => FeatureProducts(
+                                        name: future.data![index].name,
+                                        description:
+                                            future.data![index].description,
+                                        price: future.data![index].price,
+                                        imageURL: future.data![index].imageURL,
+                                        nameFull: future.data![index].nameFull,
+                                      )),
+                            );
+                          },
+                          child: ProductItemV(
+                            future.data![index].name,
+                            future.data![index].price,
+                            future.data![index].imageURL,
+                          ),
+                        ),
                       );
                     }),
                   ),
