@@ -19,6 +19,7 @@ class _FeaturePageState extends State<FeaturePage> {
     final screenSize = MediaQuery.of(context).size;
     final screenSizeHeight = screenSize.height - kBottomNavigationBarHeight;
 
+    //Connection to the database and push products
     Future pushProducts([id]) async {
       //Estabilish connection
       final mysql = await MySqlConnection.connect(

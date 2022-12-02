@@ -5,15 +5,13 @@ import 'package:malugos_project/data/mysqldata.dart';
 import 'package:malugos_project/data/provider.dart';
 import 'package:provider/provider.dart';
 
-import '../../../data/productsdata.dart';
-
 class KeybordCategory extends StatelessWidget {
   const KeybordCategory({super.key});
 
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    List<Product> data = [];
+    String order = '';
 
     return Scaffold(
       appBar: AppBar(
@@ -147,40 +145,54 @@ class KeybordCategory extends StatelessWidget {
           ),
           // Products
           FutureBuilder(
-            future: MySqlData.pushCategoryItem(),
+            future: MySqlData.pushCategoryItem(
+                id: 1,
+                category: 'Teclado',
+                order: Provider.of<Options>(context).sort),
             builder: ((context, future) {
               if (future.hasData) {
                 return Expanded(
-                  child: ListView.builder(
-                    itemCount: future.data!.length,
-                    itemBuilder: ((context, index) {
-                      return Container(
-                        decoration: BoxDecoration(
-                            color: Colors.lightGreen,
-                            borderRadius: BorderRadius.circular(30)),
-                        child: TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => FeatureProducts(
-                                        name: future.data![index].name,
-                                        description:
-                                            future.data![index].description,
-                                        price: future.data![index].price,
-                                        imageURL: future.data![index].imageURL,
-                                        nameFull: future.data![index].nameFull,
-                                      )),
-                            );
-                          },
-                          child: ProductItemV(
-                            future.data![index].name,
-                            future.data![index].price,
-                            future.data![index].imageURL,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 20,
+                        crossAxisSpacing: 20,
+                      ),
+                      itemCount: future.data!.length,
+                      itemBuilder: ((context, index) {
+                        return Container(
+                          decoration: BoxDecoration(
+                              color: Colors.lightGreen,
+                              borderRadius: BorderRadius.circular(30)),
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => FeatureProducts(
+                                          name: future.data![index].name,
+                                          description:
+                                              future.data![index].description,
+                                          price: future.data![index].price,
+                                          imageURL:
+                                              future.data![index].imageURL,
+                                          nameFull:
+                                              future.data![index].nameFull,
+                                        )),
+                              );
+                            },
+                            child: ProductItemV(
+                              future.data![index].name,
+                              future.data![index].price,
+                              future.data![index].imageURL,
+                            ),
                           ),
-                        ),
-                      );
-                    }),
+                        );
+                      }),
+                    ),
                   ),
                 );
               } else {

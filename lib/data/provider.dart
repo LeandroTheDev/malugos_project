@@ -80,7 +80,7 @@ class Options with ChangeNotifier {
   //Configuration
   bool _notifications = false;
   bool _isLoading = false;
-  String _sort = 'tudo';
+  String _sort = '';
 
   bool get notifications => _notifications;
   bool get isLoading => _isLoading;
