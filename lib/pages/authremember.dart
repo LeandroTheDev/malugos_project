@@ -63,6 +63,7 @@ class _AuthRememberState extends State<AuthRemember> {
             options.changeId(id);
             options.changeRememberLogin();
             options.changeCredentialsMatch();
+            await mysql.close();
             Future(
               () => Navigator.of(context).pushReplacementNamed('/homepage'),
             );

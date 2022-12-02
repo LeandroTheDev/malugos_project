@@ -11,7 +11,6 @@ class KeybordCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    String order = '';
 
     return Scaffold(
       appBar: AppBar(

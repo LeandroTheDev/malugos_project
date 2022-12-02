@@ -126,6 +126,18 @@ class MySqlData {
         lenght = 10 + lenght2;
       }
     }
+    //Price Order
+    if (order == 'price') {
+      List<Product> dataOrder = [];
+      Product template;
+      int i = 1;
+      while (true) {
+        i++;
+        break;
+      }
+      await mysql.close();
+      return dataOrder;
+    }
     await mysql.close();
     return data;
   }
