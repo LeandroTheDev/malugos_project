@@ -126,18 +126,33 @@ class MySqlData {
         lenght = 10 + lenght2;
       }
     }
+    List<Product> dataOrder = [];
     //Price Order
     if (order == 'price') {
-      List<Product> dataOrder = [];
-      Product template;
-      int i = 1;
-      while (true) {
-        i++;
-        break;
+      int listPosition = 0;
+      //Returns the positioning
+      for (int a = 0; a <= data.length; a++) {
+        //Checks if is lower than
+        for (int i = 0; i <= data.length; i++) {
+          if (data[a].price >= data[i].price) {
+            listPosition++;
+          }
+        }
+        while (true) {
+          if (dataOrder[listPosition].price == data[a].price) {
+            listPosition++;
+          } else {
+            break;
+          }
+        }
+        dataOrder[listPosition] = data[a];
+        listPosition = 0;
       }
       await mysql.close();
       return dataOrder;
     }
+    if (order == 'new') {}
+    if (order == 'name') {}
     await mysql.close();
     return data;
   }

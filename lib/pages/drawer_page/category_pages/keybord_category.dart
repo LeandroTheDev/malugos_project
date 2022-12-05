@@ -40,7 +40,15 @@ class KeybordCategory extends StatelessWidget {
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
                                 const Color.fromARGB(0, 0, 0, 0))),
-                        onPressed: () {},
+                        onPressed: () {
+                          Provider.of<Options>(context, listen: false)
+                              .changeSort('');
+                          //SetState
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: ((context) => this)),
+                          );
+                        },
                         child: const Text(
                           'Ordenar por',
                           style: TextStyle(color: Colors.black),
@@ -64,7 +72,7 @@ class KeybordCategory extends StatelessWidget {
                                 const Color.fromARGB(0, 0, 0, 0))),
                         onPressed: () {
                           Provider.of<Options>(context, listen: false)
-                              .changeSort('preco');
+                              .changeSort('price');
                           //SetState
                           Navigator.pushReplacement(
                             context,
@@ -95,6 +103,9 @@ class KeybordCategory extends StatelessWidget {
                             backgroundColor: MaterialStateProperty.all(
                                 const Color.fromARGB(0, 0, 0, 0))),
                         onPressed: () {
+                          Provider.of<Options>(context, listen: false)
+                              .changeSort('new');
+                          //SetState
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(builder: ((context) => this)),
@@ -110,7 +121,7 @@ class KeybordCategory extends StatelessWidget {
                     ),
                   ),
                   SizedBox(width: screenSize.width * 0.03),
-                  //Nome
+                  //Name
                   Container(
                     width: screenSize.width * 0.2,
                     height: screenSize.height * 0.05,
@@ -124,6 +135,9 @@ class KeybordCategory extends StatelessWidget {
                             backgroundColor: MaterialStateProperty.all(
                                 const Color.fromARGB(0, 0, 0, 0))),
                         onPressed: () {
+                          Provider.of<Options>(context, listen: false)
+                              .changeSort('name');
+                          //SetState
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(builder: ((context) => this)),
