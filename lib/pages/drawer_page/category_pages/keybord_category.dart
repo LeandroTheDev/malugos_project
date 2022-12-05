@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:malugos_project/components/productitem_show.dart';
 import 'package:malugos_project/components/productitem_v.dart';
 import 'package:malugos_project/data/mysqldata.dart';
+import 'package:malugos_project/data/productsdata.dart';
 import 'package:malugos_project/data/provider.dart';
 import 'package:provider/provider.dart';
 
@@ -11,6 +12,12 @@ class KeybordCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
+
+    Future<List<Product>> pushSortBy(category, sort) async {
+      List<Product> data =
+          await MySqlData.pushCategoryItem(id: 1, category: category);
+      return data;
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -158,10 +165,7 @@ class KeybordCategory extends StatelessWidget {
           ),
           // Products
           FutureBuilder(
-            future: MySqlData.pushCategoryItem(
-                id: 1,
-                category: 'Teclado',
-                order: Provider.of<Options>(context).sort),
+            future: pushSortBy('Teclado', Provider.of<Options>(context).sort),
             builder: ((context, future) {
               if (future.hasData) {
                 return Expanded(
