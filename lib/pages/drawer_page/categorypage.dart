@@ -72,7 +72,9 @@ class _CategoryPageState extends State<CategoryPage> {
                 style: ElevatedButton.styleFrom(
                   elevation: 10,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/mouseCategory');
+                },
                 child: SizedBox(
                   width: screenSize.width,
                   height: 100,
@@ -116,7 +118,9 @@ class _CategoryPageState extends State<CategoryPage> {
                 style: ElevatedButton.styleFrom(
                   elevation: 10,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/monitorCategory');
+                },
                 child: SizedBox(
                   width: screenSize.width,
                   height: 100,

@@ -3,10 +3,13 @@ import 'package:malugos_project/data/provider.dart';
 import 'package:malugos_project/pages/authpage.dart';
 import 'package:malugos_project/pages/authremember.dart';
 import 'package:malugos_project/pages/drawer_page/category_pages/keybord_category.dart';
+import 'package:malugos_project/pages/drawer_page/category_pages/monitor_category.dart';
+import 'package:malugos_project/pages/drawer_page/category_pages/mouse_category.dart';
 import 'package:malugos_project/pages/drawer_page/categorypage.dart';
 import 'package:malugos_project/pages/drawer_page/configurationpage.dart';
 import 'package:malugos_project/pages/drawer_page/profilepage.dart';
 import 'package:malugos_project/pages/home_page/featurepage.dart';
+import 'package:malugos_project/pages/home_page/promopage.dart';
 import 'package:malugos_project/pages/homepage.dart';
 import 'package:provider/provider.dart';
 
@@ -33,6 +36,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Malugos',
       theme: ThemeData(
         scaffoldBackgroundColor: const Color.fromARGB(255, 24, 24, 24),
@@ -46,6 +50,9 @@ class MyApp extends StatelessWidget {
         '/profilepage': (context) => const ProfilePage(),
         '/featurepage': (context) => const FeaturePage(),
         '/keyboardCategory': (context) => const KeybordCategory(),
+        '/mouseCategory': (context) => const MouseCategory(),
+        '/monitorCategory': (context) => const MonitorCategory(),
+        '/promopage': (context) => const PromoPage(),
       },
       home: const MyHomePage(),
     );

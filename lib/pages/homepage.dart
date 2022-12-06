@@ -289,7 +289,7 @@ class _HomePageState extends State<HomePage> {
             //"Promoção"
             TextButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/featurepage');
+                Navigator.pushNamed(context, '/promopage');
               },
               child: Container(
                 width: screenSize.width * 0.4,
@@ -325,18 +325,61 @@ class _HomePageState extends State<HomePage> {
             ),
             const SizedBox(height: 30),
             //Promotions Horizontal View
-            FutureBuilder(builder: (context, future) {
-              if (future.data == null) {
-                return const CircularProgressIndicator();
-              } else {
-                return ListView.builder(
-                  itemCount: 1,
-                  itemBuilder: ((context, index) {
-                    return Container();
-                  }),
-                );
-              }
-            }),
+            FutureBuilder(
+              future: MySqlData.pushProducts(1, true),
+              builder: (BuildContext context, future) {
+                if (future.data == null) {
+                  return const Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 100, vertical: 40),
+                    child: CircularProgressIndicator(),
+                  );
+                } else {
+                  return SizedBox(
+                    width: screenSize.width,
+                    height: screenSize.height * 0.25,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: future.data.length,
+                      itemBuilder: (context, i) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.lightGreen,
+                                borderRadius: BorderRadius.circular(30)),
+                            child: TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => FeatureProducts(
+                                            name: future.data[i].name,
+                                            description:
+                                                future.data[i].description,
+                                            price: future.data[i].price,
+                                            imageURL: future.data[i].imageURL,
+                                            nameFull: future.data[i].nameFull,
+                                          )),
+                                );
+                              },
+                              child: ProductItemH(
+                                future.data[i].name,
+                                future.data[i].price,
+                                future.data[i].imageURL,
+                                screenSize.width,
+                                screenSize.height * 0.25,
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                }
+              },
+            ),
+            const SizedBox(height: 30),
           ],
         ),
       ),

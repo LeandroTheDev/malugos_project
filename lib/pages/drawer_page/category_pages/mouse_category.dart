@@ -3,8 +3,8 @@ import 'package:malugos_project/components/productitem_show.dart';
 import 'package:malugos_project/components/productitem_v.dart';
 import 'package:malugos_project/data/mysqldata.dart';
 
-class KeybordCategory extends StatelessWidget {
-  const KeybordCategory({super.key});
+class MonitorCategory extends StatelessWidget {
+  const MonitorCategory({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class KeybordCategory extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Teclados'),
+        title: const Text('Monitores'),
         centerTitle: true,
       ),
       body: Column(
@@ -20,7 +20,7 @@ class KeybordCategory extends StatelessWidget {
           const SizedBox(height: 20),
           // Products
           FutureBuilder(
-            future: MySqlData.pushCategoryItem(id: 1, category: 'Teclado'),
+            future: MySqlData.pushCategoryItem(id: 1, category: 'Monitor'),
             builder: ((context, future) {
               if (future.hasData) {
                 return Expanded(
