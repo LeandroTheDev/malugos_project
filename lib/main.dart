@@ -9,6 +9,7 @@ import 'package:malugos_project/pages/drawer_page/categorypage.dart';
 import 'package:malugos_project/pages/drawer_page/configurationpage.dart';
 import 'package:malugos_project/pages/drawer_page/profilepage.dart';
 import 'package:malugos_project/pages/home_page/featurepage.dart';
+import 'package:malugos_project/pages/home_page/mostsellpage.dart';
 import 'package:malugos_project/pages/home_page/promopage.dart';
 import 'package:malugos_project/pages/homepage.dart';
 import 'package:provider/provider.dart';
@@ -53,6 +54,7 @@ class MyApp extends StatelessWidget {
         '/mouseCategory': (context) => const MouseCategory(),
         '/monitorCategory': (context) => const MonitorCategory(),
         '/promopage': (context) => const PromoPage(),
+        '/mostsellpage': (context) => const MostSellPage(),
       },
       home: const MyHomePage(),
     );

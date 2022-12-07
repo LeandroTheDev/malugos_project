@@ -4,14 +4,14 @@ import '../../components/productitem_v.dart';
 import '../../data/mysqldata.dart';
 
 //Feature Page
-class PromoPage extends StatefulWidget {
-  const PromoPage({super.key});
+class MostSellPage extends StatefulWidget {
+  const MostSellPage({super.key});
 
   @override
-  State<PromoPage> createState() => _PromoPageState();
+  State<MostSellPage> createState() => _MostSellPageState();
 }
 
-class _PromoPageState extends State<PromoPage> {
+class _MostSellPageState extends State<MostSellPage> {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -19,7 +19,7 @@ class _PromoPageState extends State<PromoPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Promoções'),
+        title: const Text('Mais Vendidos'),
       ),
       body: Column(
         children: [
@@ -27,9 +27,9 @@ class _PromoPageState extends State<PromoPage> {
           FutureBuilder(
               future: MySqlData.pushProducts(
                 id: 1,
-                isPromo: true,
+                isPromo: false,
                 isHorizontal: false,
-                isMostSell: false,
+                isMostSell: true,
               ),
               builder: (context, future) {
                 if (future.data == null) {

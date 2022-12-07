@@ -6,7 +6,7 @@ class MySqlData {
   static String adress = 'localhost';
   static int port = 3306;
   static String data = 'malugos';
-  static String password = 'password';
+  static String password = 'passwords';
 
   //Returns the features Horizontal Length
   static Future<int> featureLenghtH(id) async {
@@ -60,8 +60,12 @@ class MySqlData {
   }
 
   //Returns the products
-  static Future pushProducts(
-      [id, bool isPromo = false, bool isHorizontal = false]) async {
+  static Future pushProducts({
+    id,
+    bool isPromo = false,
+    bool isMostSell = false,
+    bool isHorizontal = false,
+  }) async {
     //Estabilish connection
     final mysql = await MySqlConnection.connect(
       ConnectionSettings(
@@ -86,6 +90,66 @@ class MySqlData {
         isPromoDB = isPromoDB == 'true';
 
         if (isPromoDB) {
+          //Take the informations from database
+          dynamic name =
+              await mysql.query('select name from products where id = ?', [id]);
+          name = name.toString().replaceFirst('(Fields: {name: ', '');
+          name = name.substring(0, name.length - 2);
+          dynamic price = await mysql
+              .query('select price from products where id = ?', [id]);
+          price = price.toString().replaceFirst('(Fields: {price: ', '');
+          price = price.substring(0, price.length - 2);
+          price = double.parse(price);
+          dynamic imageURL = await mysql
+              .query('select imageURL from products where id = ?', [id]);
+          imageURL =
+              imageURL.toString().replaceFirst('(Fields: {imageURL: ', '');
+          imageURL = imageURL.substring(0, imageURL.length - 2);
+          dynamic description = await mysql
+              .query('select description from products where id = ?', [id]);
+          description = description
+              .toString()
+              .replaceFirst('(Fields: {description: ', '');
+          description = description.substring(0, description.length - 2);
+          dynamic nameFull = await mysql
+              .query('select nameFULL from products where id = ?', [id]);
+          nameFull =
+              nameFull.toString().replaceFirst('(Fields: {nameFULL: ', '');
+          nameFull = nameFull.substring(0, nameFull.length - 2);
+          //Repass the informations into variable
+          Product productInfo = Product(
+            id: id,
+            name: name,
+            description: description,
+            price: price,
+            imageURL: imageURL,
+            nameFull: nameFull,
+          );
+          //Add informations into list
+          data.add(productInfo);
+          //Jump the limiter
+          //Jump the limiter
+          if (isHorizontal) {
+            if (id == lenght && id <= 10) {
+              id = 10;
+              lenght = 10 + lenght2;
+            }
+            if (data.length > 6) {
+              break;
+            }
+          }
+        }
+      }
+    } else if (isMostSell) {
+      for (id; id <= lenght; id++) {
+        dynamic isMostSellDB = await mysql
+            .query('select isMostSell from products where id = ?', [id]);
+        isMostSellDB =
+            isMostSellDB.toString().replaceFirst('(Fields: {isMostSell: ', '');
+        isMostSellDB = isMostSellDB.substring(0, isMostSellDB.length - 2);
+        isMostSellDB = isMostSellDB == 'true';
+
+        if (isMostSellDB) {
           //Take the informations from database
           dynamic name =
               await mysql.query('select name from products where id = ?', [id]);

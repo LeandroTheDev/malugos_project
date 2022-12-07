@@ -76,13 +76,8 @@ class _HomePageState extends State<HomePage> {
     //Connect to the database and push Images url
     Future pushImages() async {
       //Debug
-      List<String> imageURL = [
-        'https://www.malugos.com.br/templates/g5_helium/custom/images/banners/banner%20m%C3%A9dio%20PC%20GAMER.jpg',
-        'https://www.malugos.com.br/templates/g5_helium/custom/images/banners/MINI%20BANNER%20PC%20CORPORATIVO.jpg',
-        'https://www.malugos.com.br/templates/g5_helium/custom/images/banners/Banner%20headset.png',
-      ];
+      List<String> imageURL = [];
       //Estabilish connection
-      // ignore: unused_local_variable
       final mysql = await MySqlConnection.connect(
         ConnectionSettings(
           host: MySqlData.adress,
@@ -92,6 +87,23 @@ class _HomePageState extends State<HomePage> {
           password: MySqlData.password,
         ),
       );
+      int i = 1;
+      while (true) {
+        dynamic imageURLDB =
+            await mysql.query('select imageURL from images where id = ?', [i]);
+        imageURLDB =
+            imageURLDB.toString().replaceFirst('(Fields: {imageURL: ', '');
+        imageURLDB = imageURLDB.substring(0, imageURLDB.length - 2);
+        if (imageURLDB == '') {
+          break;
+        }
+        if (i >= 10) {
+          break;
+        }
+        imageURL.add(imageURLDB);
+        i++;
+      }
+      await mysql.close();
       return imageURL;
     }
 
@@ -217,7 +229,7 @@ class _HomePageState extends State<HomePage> {
             //"Mais Vendidos"
             TextButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/featurepage');
+                Navigator.pushNamed(context, '/mostsellpage');
               },
               child: Container(
                 width: screenSize.width * 0.45,
@@ -326,7 +338,12 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 30),
             //Promotions Horizontal View
             FutureBuilder(
-              future: MySqlData.pushProducts(1, true),
+              future: MySqlData.pushProducts(
+                id: 1,
+                isPromo: true,
+                isHorizontal: true,
+                isMostSell: false,
+              ),
               builder: (BuildContext context, future) {
                 if (future.data == null) {
                   return const Padding(
