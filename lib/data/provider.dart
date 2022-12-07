@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:malugos_project/data/productsdata.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Options with ChangeNotifier {
@@ -57,13 +58,19 @@ class Options with ChangeNotifier {
   }
 
   //Profile Datas
+  final List<Product> _cartItems = [];
   double _credits = 0;
   int _onWay = 0;
   int _points = 0;
 
+  List<Product> get cartItems => _cartItems;
   double get credits => _credits;
   int get onWay => _onWay;
   int get points => _points;
+
+  void addCartItem(Product value) {
+    _cartItems.add(value);
+  }
 
   void changeCredits(double value) {
     _credits = value;
@@ -78,13 +85,20 @@ class Options with ChangeNotifier {
   }
 
   //Configuration
+  bool _descMinimized = false;
   bool _notifications = false;
   bool _isLoading = false;
   String _sort = '';
 
+  bool get descMinimized => _descMinimized;
   bool get notifications => _notifications;
   bool get isLoading => _isLoading;
   String get sort => _sort;
+
+  void changeDescMinimaztion() {
+    _descMinimized = !descMinimized;
+    notifyListeners();
+  }
 
   void changeNotifications() {
     _notifications = !_notifications;

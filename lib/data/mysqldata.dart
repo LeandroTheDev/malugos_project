@@ -6,7 +6,7 @@ class MySqlData {
   static String adress = 'localhost';
   static int port = 3306;
   static String data = 'malugos';
-  static String password = 'passwords';
+  static String password = 'password';
 
   //Returns the features Horizontal Length
   static Future<int> featureLenghtH(id) async {

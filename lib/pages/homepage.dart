@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:malugos_project/components/drawer.dart';
+import 'package:malugos_project/components/drawershop.dart';
 import 'package:malugos_project/components/productitem_h.dart';
 import 'package:malugos_project/components/productitem_show.dart';
 import 'package:malugos_project/data/productsdata.dart';
@@ -109,20 +110,39 @@ class _HomePageState extends State<HomePage> {
 
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      //Drawer
+      //Drawers
       drawer: Theme(
         data: Theme.of(context).copyWith(
           canvasColor: Colors.transparent,
         ),
         child: const AppDrawer(),
       ),
+      endDrawer: Theme(
+        data: Theme.of(context).copyWith(
+          canvasColor: Colors.lightGreen,
+        ),
+        child: const DrawerShop(),
+      ),
       //AppBar
       appBar: AppBar(
+        actions: <Widget>[Container()],
         centerTitle: true,
         title: SizedBox(
-          child: SizedBox(
-            height: 65,
-            child: Image.asset("assets/malugosicon.png"),
+          child: Row(
+            children: [
+              const Spacer(),
+              SizedBox(
+                height: 65,
+                child: Image.asset("assets/malugosicon.png"),
+              ),
+              const Spacer(),
+              Builder(builder: (BuildContext context) {
+                return IconButton(
+                  onPressed: () => Scaffold.of(context).openEndDrawer(),
+                  icon: const Icon(Icons.shopping_bag_outlined),
+                );
+              }),
+            ],
           ),
         ),
       ),
