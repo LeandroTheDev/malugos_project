@@ -58,7 +58,7 @@ class Options with ChangeNotifier {
   }
 
   //Profile Datas
-  final List<Product> _cartItems = [];
+  List<Product> _cartItems = [];
   double _credits = 0;
   int _onWay = 0;
   int _points = 0;
@@ -70,6 +70,20 @@ class Options with ChangeNotifier {
 
   void addCartItem(Product value) {
     _cartItems.add(value);
+  }
+
+  void removeSpecificCartItem(value) {
+    if (value == 'last') {
+      _cartItems.removeLast();
+    } else {
+      _cartItems.removeAt(value);
+    }
+    notifyListeners();
+  }
+
+  void removeAllCartItem() {
+    _cartItems = [];
+    notifyListeners();
   }
 
   void changeCredits(double value) {

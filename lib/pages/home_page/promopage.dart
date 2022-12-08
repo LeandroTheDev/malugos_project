@@ -67,6 +67,7 @@ class _PromoPageState extends State<PromoPage> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => FeatureProducts(
+                                              id: future.data[index].id,
                                               name: future.data[index].name,
                                               description: future
                                                   .data[index].description,
@@ -75,6 +76,8 @@ class _PromoPageState extends State<PromoPage> {
                                                   future.data[index].imageURL,
                                               nameFull:
                                                   future.data[index].nameFull,
+                                              productLink:
+                                                  future.data[index].productURL,
                                             )),
                                   );
                                 },

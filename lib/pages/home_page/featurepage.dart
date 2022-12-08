@@ -59,6 +59,11 @@ class _FeaturePageState extends State<FeaturePage> {
             .query('select nameFULL from products where id = ?', [id]);
         nameFull = nameFull.toString().replaceFirst('(Fields: {nameFULL: ', '');
         nameFull = nameFull.substring(0, nameFull.length - 2);
+        dynamic productURL = await mysql
+            .query('select linkURL from products where id = ?', [id]);
+        productURL =
+            productURL.toString().replaceFirst('(Fields: {linkURL: ', '');
+        productURL = productURL.substring(0, productURL.length - 2);
         //Repass the informations into variable
         Product productInfo = Product(
           id: id,
@@ -67,6 +72,7 @@ class _FeaturePageState extends State<FeaturePage> {
           price: price,
           imageURL: imageURL,
           nameFull: nameFull,
+          productURL: productURL,
         );
         //Add informations into list
         data.add(productInfo);
@@ -125,6 +131,7 @@ class _FeaturePageState extends State<FeaturePage> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => FeatureProducts(
+                                              id: future.data[index].id,
                                               name: future.data[index].name,
                                               description: future
                                                   .data[index].description,
@@ -133,6 +140,8 @@ class _FeaturePageState extends State<FeaturePage> {
                                                   future.data[index].imageURL,
                                               nameFull:
                                                   future.data[index].nameFull,
+                                              productLink:
+                                                  future.data[index].productURL,
                                             )),
                                   );
                                 },

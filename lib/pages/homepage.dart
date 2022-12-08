@@ -58,6 +58,11 @@ class _HomePageState extends State<HomePage> {
             .query('select nameFULL from products where id = ?', [id]);
         nameFull = nameFull.toString().replaceFirst('(Fields: {nameFULL: ', '');
         nameFull = nameFull.substring(0, nameFull.length - 2);
+        dynamic productURL = await mysql
+            .query('select linkURL from products where id = ?', [id]);
+        productURL =
+            productURL.toString().replaceFirst('(Fields: {linkURL: ', '');
+        productURL = productURL.substring(0, productURL.length - 2);
         //Repass the informations into variable
         Product productInfo = Product(
           id: id,
@@ -66,6 +71,7 @@ class _HomePageState extends State<HomePage> {
           price: price,
           imageURL: imageURL,
           nameFull: nameFull,
+          productURL: productURL,
         );
         //Add informations into list
         data.add(productInfo);
@@ -218,12 +224,15 @@ class _HomePageState extends State<HomePage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => FeatureProducts(
+                                            id: future.data[i].id,
                                             name: future.data[i].name,
                                             description:
                                                 future.data[i].description,
                                             price: future.data[i].price,
                                             imageURL: future.data[i].imageURL,
                                             nameFull: future.data[i].nameFull,
+                                            productLink:
+                                                future.data[i].productURL,
                                           )),
                                 );
                               },
@@ -391,12 +400,15 @@ class _HomePageState extends State<HomePage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => FeatureProducts(
+                                            id: future.data[i].id,
                                             name: future.data[i].name,
                                             description:
                                                 future.data[i].description,
                                             price: future.data[i].price,
                                             imageURL: future.data[i].imageURL,
                                             nameFull: future.data[i].nameFull,
+                                            productLink:
+                                                future.data[i].productURL,
                                           )),
                                 );
                               },

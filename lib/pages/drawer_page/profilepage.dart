@@ -145,7 +145,9 @@ class ProfilePage extends StatelessWidget {
                         child: SizedBox(
                           width: screenSize.width,
                           child: TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/history');
+                            },
                             //"Historico"
                             child: Container(
                               alignment: Alignment.centerLeft,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:malugos_project/data/productsdata.dart';
 import 'package:malugos_project/data/provider.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class FeatureProducts extends StatefulWidget {
   final String name;
@@ -10,6 +11,8 @@ class FeatureProducts extends StatefulWidget {
   final double price;
   final String imageURL;
   final String nameFull;
+  final String productLink;
+  final int id;
 
   const FeatureProducts({
     super.key,
@@ -18,6 +21,8 @@ class FeatureProducts extends StatefulWidget {
     this.price = 0,
     this.imageURL = '',
     this.nameFull = '',
+    this.productLink = 'https://',
+    required this.id,
   });
 
   @override
@@ -25,6 +30,17 @@ class FeatureProducts extends StatefulWidget {
 }
 
 class _FeatureProductsState extends State<FeatureProducts> {
+  Future<void> _launchInWebViewOrVC(Uri url) async {
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.inAppWebView,
+      webViewConfiguration: const WebViewConfiguration(
+          headers: <String, String>{'my_header_key': 'my_header_value'}),
+    )) {
+      throw 'Não foi possivel efetuar essa ação';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -134,13 +150,29 @@ class _FeatureProductsState extends State<FeatureProducts> {
                       price: widget.price,
                       imageURL: widget.imageURL,
                       nameFull: widget.nameFull,
+                      productURL: widget.productLink,
+                      id: widget.id,
                     ),
                   );
+                  final snackBar = SnackBar(
+                    duration: const Duration(seconds: 2),
+                    content: const Text('Adicionado ao carrinho!'),
+                    action: SnackBarAction(
+                      label: 'Desfazer',
+                      onPressed: () {
+                        option.removeSpecificCartItem('last');
+                      },
+                    ),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 },
                 child: const Text('Adicionar ao Carrinho')),
             const SizedBox(height: 25),
             //"Ver no Site"
-            ElevatedButton(onPressed: () {}, child: const Text('Ver no Site')),
+            ElevatedButton(
+                onPressed: () =>
+                    _launchInWebViewOrVC(Uri.parse(widget.productLink)),
+                child: const Text('Ver no Site')),
             const SizedBox(height: 25),
           ],
         ),

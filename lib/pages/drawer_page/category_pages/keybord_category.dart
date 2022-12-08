@@ -43,6 +43,7 @@ class KeybordCategory extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => FeatureProducts(
+                                          id: future.data![index].id,
                                           name: future.data![index].name,
                                           description:
                                               future.data![index].description,
@@ -51,6 +52,8 @@ class KeybordCategory extends StatelessWidget {
                                               future.data![index].imageURL,
                                           nameFull:
                                               future.data![index].nameFull,
+                                          productLink:
+                                              future.data![index].productURL,
                                         )),
                               );
                             },

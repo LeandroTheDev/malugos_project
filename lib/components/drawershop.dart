@@ -9,6 +9,7 @@ class DrawerShop extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     final option = Provider.of<Options>(context, listen: false);
+    final optionW = Provider.of<Options>(context, listen: true);
     return Drawer(
       width: screenSize.width * 0.50,
       child: SingleChildScrollView(
@@ -62,12 +63,35 @@ class DrawerShop extends StatelessWidget {
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             )),
                   SizedBox(width: screenSize.width * 0.1),
+                  //Cleanup Cart
                   Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10.0),
                       child: option.cartItems.isEmpty
                           ? const SizedBox()
                           : ElevatedButton(
-                              onPressed: () {}, child: const Text('Limpar')))
+                              onPressed: () => showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: const Text('Limpar Carrinho'),
+                                      content: const Text('Tem certeza?'),
+                                      actions: [
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            optionW.removeAllCartItem();
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text('Sim'),
+                                        ),
+                                        ElevatedButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context),
+                                          child: const Text('Não'),
+                                        ),
+                                      ],
+                                    );
+                                  }),
+                              child: const Text('Limpar')))
                 ],
               ),
             ),
@@ -91,13 +115,58 @@ class DrawerShop extends StatelessWidget {
                                 child:
                                     Image.network(option.cartItems[i].imageURL),
                               ),
-                              SizedBox(width: screenSize.width * 0.02),
-                              Column(
-                                children: [
-                                  Text(option.cartItems[i].name),
-                                  Text(option.cartItems[i].price.toString()),
-                                ],
-                              )
+                              //Name and Price
+                              Padding(
+                                padding: const EdgeInsets.only(left: 10.0),
+                                child: Column(
+                                  children: [
+                                    Text(option.cartItems[i].name),
+                                    Text(option.cartItems[i].price.toString()),
+                                  ],
+                                ),
+                              ),
+                              //Delete
+                              Padding(
+                                padding: const EdgeInsets.only(left: 10),
+                                child: InkWell(
+                                  onTap: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            title:
+                                                const Text('Remover Produto'),
+                                            content: const Text('Tem certeza?'),
+                                            actions: [
+                                              ElevatedButton(
+                                                onPressed: () {
+                                                  optionW
+                                                      .removeSpecificCartItem(
+                                                          i);
+                                                  Navigator.pop(context);
+                                                },
+                                                child: const Text('Sim'),
+                                              ),
+                                              ElevatedButton(
+                                                onPressed: () =>
+                                                    Navigator.pop(context),
+                                                child: const Text('Não'),
+                                              ),
+                                            ],
+                                          );
+                                        });
+                                  },
+                                  child: Container(
+                                    width: screenSize.width * 0.08,
+                                    height: screenSize.height * 0.07,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.red,
+                                    ),
+                                    child: const Icon(Icons.delete),
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -108,7 +177,9 @@ class DrawerShop extends StatelessWidget {
                       ? const SizedBox()
                       //Finish purchase
                       : ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/finishpurchase');
+                          },
                           child: const Text('Finalizar Compra')),
                   const SizedBox(height: 10),
                 ],
