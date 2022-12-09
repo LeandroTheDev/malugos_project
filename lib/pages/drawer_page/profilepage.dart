@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:malugos_project/data/provider.dart';
 import 'package:provider/provider.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     final options = Provider.of<Options>(context, listen: true);
@@ -187,7 +192,9 @@ class ProfilePage extends StatelessWidget {
                         width: screenSize.width,
                         height: 50,
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/deliverylocation');
+                          },
                           //"Detalhes"
                           child: Container(
                             alignment: Alignment.centerLeft,
@@ -228,7 +235,9 @@ class ProfilePage extends StatelessWidget {
                           width: screenSize.width,
                           height: 50,
                           child: TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/deliverylocation');
+                            },
                             //"Locais de Entrega"
                             child: Container(
                               alignment: Alignment.centerLeft,

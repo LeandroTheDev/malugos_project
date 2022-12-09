@@ -8,6 +8,7 @@ import 'package:malugos_project/pages/drawer_page/category_pages/mouse_category.
 import 'package:malugos_project/pages/drawer_page/categorypage.dart';
 import 'package:malugos_project/pages/drawer_page/configurationpage.dart';
 import 'package:malugos_project/pages/drawer_page/profilepage.dart';
+import 'package:malugos_project/pages/drawer_page/profilepage/deliverylocation.dart';
 import 'package:malugos_project/pages/drawer_page/profilepage/history.dart';
 import 'package:malugos_project/pages/home_page/featurepage.dart';
 import 'package:malugos_project/pages/home_page/finishpurchase.dart';
@@ -59,6 +60,7 @@ class MyApp extends StatelessWidget {
         '/mostsellpage': (context) => const MostSellPage(),
         '/finishpurchase': (context) => const FinishPurchase(),
         '/history': (context) => const History(),
+        '/deliverylocation': (context) => const DeliveryLocation(),
       },
       home: const MyHomePage(),
     );

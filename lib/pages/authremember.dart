@@ -63,6 +63,22 @@ class _AuthRememberState extends State<AuthRemember> {
             options.changeId(id);
             options.changeRememberLogin();
             options.changeCredentialsMatch();
+            dynamic credits = await mysql
+                .query('select credits from userdata where id = ?', [id]);
+            credits =
+                credits.toString().replaceFirst('(Fields: {credits: ', '');
+            credits = credits.substring(0, credits.length - 2);
+            dynamic onyWay = await mysql
+                .query('select onWay from userdata where id = ?', [id]);
+            onyWay = onyWay.toString().replaceFirst('(Fields: {onWay: ', '');
+            onyWay = onyWay.substring(0, onyWay.length - 2);
+            dynamic points = await mysql
+                .query('select points from userdata where id = ?', [id]);
+            points = points.toString().replaceFirst('(Fields: {points: ', '');
+            points = points.substring(0, points.length - 2);
+            options.changeCredits(double.parse(credits));
+            options.changeOnWay(int.parse(onyWay));
+            options.changePoints(int.parse(points));
             await mysql.close();
             Future(
               () => Navigator.of(context).pushReplacementNamed('/homepage'),
