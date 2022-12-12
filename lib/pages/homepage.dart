@@ -131,24 +131,19 @@ class _HomePageState extends State<HomePage> {
       ),
       //AppBar
       appBar: AppBar(
-        actions: <Widget>[Container()],
         centerTitle: true,
+        actions: <Widget>[
+          Builder(builder: (BuildContext context) {
+            return IconButton(
+              onPressed: () => Scaffold.of(context).openEndDrawer(),
+              icon: const Icon(Icons.shopping_bag_outlined),
+            );
+          }),
+        ],
         title: SizedBox(
-          child: Row(
-            children: [
-              const Spacer(),
-              SizedBox(
-                height: 65,
-                child: Image.asset("assets/malugosicon.png"),
-              ),
-              const Spacer(),
-              Builder(builder: (BuildContext context) {
-                return IconButton(
-                  onPressed: () => Scaffold.of(context).openEndDrawer(),
-                  icon: const Icon(Icons.shopping_bag_outlined),
-                );
-              }),
-            ],
+          child: SizedBox(
+            height: 65,
+            child: Image.asset("assets/malugosicon.png"),
           ),
         ),
       ),

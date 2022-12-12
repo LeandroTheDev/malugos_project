@@ -90,29 +90,24 @@ class _FeaturePageState extends State<FeaturePage> {
       appBar: AppBar(
         title: const Text('Destaques'),
       ),
-      body: Column(
-        children: [
-          //Show features products
-          FutureBuilder(
-              future: pushProducts(1),
-              builder: (context, future) {
-                if (future.data == null) {
-                  return Container(
-                      alignment: Alignment.center,
-                      width: screenSize.width,
-                      height: screenSizeHeight,
-                      child: const SizedBox(
-                          width: 200,
-                          height: 200,
-                          child: CircularProgressIndicator()));
-                } else {
-                  return SizedBox(
-                    width: screenSize.width,
-                    height: screenSizeHeight,
-                    child: Padding(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 20.0),
+        child: Column(
+          children: [
+            //Show features products
+            FutureBuilder(
+                future: pushProducts(1),
+                builder: (context, future) {
+                  if (future.data == null) {
+                    return Container(
+                        alignment: Alignment.center,
+                        child: const CircularProgressIndicator());
+                  } else {
+                    return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: SizedBox(
                         child: GridView.builder(
+                          shrinkWrap: true,
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
@@ -155,11 +150,11 @@ class _FeaturePageState extends State<FeaturePage> {
                           },
                         ),
                       ),
-                    ),
-                  );
-                }
-              }),
-        ],
+                    );
+                  }
+                }),
+          ],
+        ),
       ),
     );
   }
