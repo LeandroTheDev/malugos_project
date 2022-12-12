@@ -33,7 +33,7 @@ the database, making the application not need daily maintenance.
 
 # Database works
 
-The database will have 1 Data Bank and 3 importants table.
+The database will have 1 Data Bank and 4 importants table.
 
 The applications works behind the database, see the [Database Configuration](https://github.com/LeandroTheDev/malugos_project/wiki/Database-Configuration) for more informations to configure.
 
