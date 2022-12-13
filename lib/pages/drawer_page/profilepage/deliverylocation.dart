@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:provider/provider.dart';
@@ -43,63 +44,185 @@ class _DeliveryLocationState extends State<DeliveryLocation> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Column(
-          children: [
-            //Add delivery button
-            FittedBox(
-              child: TextButton(
-                onPressed: () {},
-                style: TextButton.styleFrom(
-                  foregroundColor: Colors.black,
-                ),
-                child: Container(
-                  width: 160,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Colors.lightGreen,
-                    borderRadius: BorderRadius.circular(5),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              //Add delivery button
+              FittedBox(
+                child: TextButton(
+                  onPressed: () {},
+                  style: TextButton.styleFrom(
+                    foregroundColor: Colors.black,
                   ),
-                  child: Row(
-                    children: const [
-                      Spacer(),
-                      Icon(Icons.add_home_outlined),
-                      SizedBox(width: 10),
-                      Text('Adicionar Lugar'),
-                      Spacer(),
-                    ],
+                  child: Container(
+                    width: 160,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Colors.lightGreen,
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Row(
+                      children: const [
+                        Spacer(),
+                        Icon(Icons.add_home_outlined),
+                        SizedBox(width: 10),
+                        Text('Adicionar Lugar'),
+                        Spacer(),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            //Delivery locations
-            FutureBuilder(
-                future: pushDelivery(),
-                builder: (context, future) {
-                  if (future.hasData) {
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: future.data!.length,
-                      itemBuilder: (context, i) {
-                        return FittedBox(
-                          child: Container(
-                            width: 30,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              color: Colors.lightGreen,
-                              borderRadius: BorderRadius.circular(5),
+              const SizedBox(height: 10),
+              //Delivery locations
+              FutureBuilder(
+                  future: pushDelivery(),
+                  builder: (context, future) {
+                    if (future.hasData) {
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: future.data!.length,
+                        itemBuilder: (context, i) {
+                          return FittedBox(
+                            child: Container(
+                              width: 240,
+                              height: 246,
+                              decoration: BoxDecoration(
+                                color: Colors.lightGreen,
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    //Road name
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                        top: 2,
+                                        left: 2,
+                                        right: 1,
+                                      ),
+                                      child: SizedBox(
+                                        height: 45,
+                                        child: Text(
+                                          'Rua: ${future.data!['Delivery$i']['roadName']}',
+                                          style: const TextStyle(fontSize: 13),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 2,
+                                        ),
+                                      ),
+                                    ),
+                                    //House number
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                        top: 2,
+                                        left: 2,
+                                      ),
+                                      child: SizedBox(
+                                        height: 25,
+                                        child: Text(
+                                          'Numero: ${future.data!['Delivery$i']['houseNumber']}',
+                                          style: const TextStyle(fontSize: 13),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                        ),
+                                      ),
+                                    ),
+                                    //State
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                        top: 2,
+                                        left: 2,
+                                      ),
+                                      child: SizedBox(
+                                        height: 25,
+                                        child: Text(
+                                          'Estado: ${future.data!['Delivery$i']['state']}',
+                                          style: const TextStyle(fontSize: 13),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                        ),
+                                      ),
+                                    ),
+                                    //District
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                        top: 2,
+                                        left: 2,
+                                      ),
+                                      child: SizedBox(
+                                        height: 25,
+                                        child: Text(
+                                          'Bairro: ${future.data!['Delivery$i']['district']}',
+                                          style: const TextStyle(fontSize: 13),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                        ),
+                                      ),
+                                    ),
+                                    //CEP
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                        top: 2,
+                                        left: 2,
+                                      ),
+                                      child: SizedBox(
+                                        height: 25,
+                                        child: Text(
+                                          'CEP: ${future.data!['Delivery$i']['CEP']}',
+                                          style: const TextStyle(fontSize: 13),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                        ),
+                                      ),
+                                    ),
+                                    //Contact number
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                        top: 2,
+                                        left: 2,
+                                      ),
+                                      child: SizedBox(
+                                        height: 45,
+                                        child: Text(
+                                          'Numero de contato: ${future.data!['Delivery$i']['contactNumber']}',
+                                          style: const TextStyle(fontSize: 13),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 2,
+                                        ),
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    //Remove Location
+                                    Row(
+                                      children: [
+                                        const Spacer(),
+                                        ElevatedButton(
+                                          onPressed: () {},
+                                          child: const Text('Remover Local'),
+                                        ),
+                                        const Spacer(),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                    );
-                  } else {
-                    return const Padding(
-                      padding: EdgeInsets.all(20.0),
-                      child: Center(child: CircularProgressIndicator()),
-                    );
-                  }
-                })
-          ],
+                          );
+                        },
+                      );
+                      //Loading
+                    } else {
+                      return const Padding(
+                        padding: EdgeInsets.all(20.0),
+                        child: Center(child: CircularProgressIndicator()),
+                      );
+                    }
+                  })
+            ],
+          ),
         ),
       ),
     );
