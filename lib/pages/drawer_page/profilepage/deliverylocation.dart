@@ -82,6 +82,35 @@ class _DeliveryLocationState extends State<DeliveryLocation> {
           MaterialPageRoute(builder: (BuildContext context) => super.widget));
     }
 
+    Future addNewLocation(Map<String, dynamic> value) async {
+      final mysql = await MySqlConnection.connect(
+        ConnectionSettings(
+          host: MySqlData.adress,
+          port: MySqlData.port,
+          user: MySqlData.username,
+          db: MySqlData.data,
+          password: MySqlData.password,
+        ),
+      );
+      dynamic results = await mysql
+          .query('select delivery from userdata where id = ?', [option.id]);
+      results = results.toString().replaceFirst('(Fields: {delivery: ', '');
+      results = results.substring(0, results.length - 2);
+      results = jsonDecode(results);
+      results['Delivery${results.length}'] = value;
+      results = jsonEncode(results);
+      await mysql.query(
+          'update userdata set delivery=? where id=?', [results, option.id]);
+      await mysql.close();
+      await Future.delayed(const Duration(seconds: 1));
+      // ignore: use_build_context_synchronously
+      Navigator.pop(context);
+      await Future.delayed(const Duration(seconds: 1));
+      // ignore: use_build_context_synchronously
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (BuildContext context) => super.widget));
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Locais de Entrega'),
@@ -103,15 +132,16 @@ class _DeliveryLocationState extends State<DeliveryLocation> {
                           height: screenSize.height * 0.65,
                           color: Colors.lightGreen,
                           child: SingleChildScrollView(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: FittedBox(
+                            child: FittedBox(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  //Add
+                                  const Padding(
+                                    padding: EdgeInsets.all(8.0),
                                     child: SizedBox(
-                                      width: screenSize.width,
-                                      child: const Text(
+                                      width: 100,
+                                      child: Text(
                                         'Adicionar',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
@@ -119,94 +149,483 @@ class _DeliveryLocationState extends State<DeliveryLocation> {
                                       ),
                                     ),
                                   ),
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    //Road name
-                                    const Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 10.0),
-                                      child: Text('Nome da Rua'),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    // Road name Form
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8.0),
-                                      child: Stack(
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(top: 7.0),
-                                            child: Container(
-                                              width: screenSize.width,
-                                              height: 40,
-                                              decoration: BoxDecoration(
-                                                  color: const Color.fromARGB(
-                                                      255, 170, 221, 112),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10)),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: screenSize.width,
-                                            height: 35,
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 8.0),
-                                              child: TextFormField(),
-                                            ),
-                                          ),
-                                        ],
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      //Road name
+                                      const Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10.0),
+                                        child: Text('Nome da Rua'),
                                       ),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    // Road number
-                                    const Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 10.0),
-                                      child: Text('Número'),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    // Road number Form
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8.0),
-                                      child: Stack(
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(top: 7.0),
-                                            child: Container(
-                                              width: screenSize.width * 0.3,
+                                      const SizedBox(height: 10),
+                                      // Road name Form
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0),
+                                        child: Stack(
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 7.0),
+                                              child: Container(
+                                                width: 270,
+                                                height: 40,
+                                                decoration: BoxDecoration(
+                                                    color: const Color.fromARGB(
+                                                        255, 170, 221, 112),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10)),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 270,
                                               height: 40,
-                                              decoration: BoxDecoration(
-                                                  color: const Color.fromARGB(
-                                                      255, 170, 221, 112),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10)),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 8.0),
+                                                child: TextFormField(
+                                                  controller: option.roadName,
+                                                  keyboardType: TextInputType
+                                                      .streetAddress,
+                                                ),
+                                              ),
                                             ),
-                                          ),
-                                          SizedBox(
-                                            width: screenSize.width * 0.3,
-                                            height: 35,
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 8.0),
-                                              child: TextFormField(),
-                                            ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                      const SizedBox(height: 10),
+                                      // Number and State name
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10.0),
+                                        child: Row(
+                                          children: const [
+                                            Text('Número'),
+                                            SizedBox(width: 140),
+                                            Text('Estado'),
+                                            SizedBox(width: 25),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(height: 10),
+                                      // Number and State form
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0),
+                                        child: Row(
+                                          children: [
+                                            //Road Number
+                                            Stack(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 7.0),
+                                                  child: Container(
+                                                    width: 75,
+                                                    height: 40,
+                                                    decoration: BoxDecoration(
+                                                        color: const Color
+                                                                .fromARGB(
+                                                            255, 170, 221, 112),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10)),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 75,
+                                                  height: 40,
+                                                  child: Padding(
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
+                                                        horizontal: 8.0),
+                                                    child: TextFormField(
+                                                      controller:
+                                                          option.roadNumber,
+                                                      keyboardType:
+                                                          TextInputType.number,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(width: 120),
+                                            //State
+                                            Stack(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 7.0),
+                                                  child: Container(
+                                                    width: 75,
+                                                    height: 40,
+                                                    decoration: BoxDecoration(
+                                                        color: const Color
+                                                                .fromARGB(
+                                                            255, 170, 221, 112),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10)),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 75,
+                                                  height: 40,
+                                                  child: Padding(
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
+                                                        horizontal: 8.0),
+                                                    child: TextFormField(
+                                                      controller:
+                                                          option.roadState,
+                                                      keyboardType:
+                                                          TextInputType
+                                                              .streetAddress,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(height: 10),
+                                      // District nane
+                                      const Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10.0),
+                                        child: Text('Bairro'),
+                                      ),
+                                      const SizedBox(height: 10),
+                                      // District form
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0),
+                                        child: Stack(
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 7.0),
+                                              child: Container(
+                                                width: 270,
+                                                height: 40,
+                                                decoration: BoxDecoration(
+                                                    color: const Color.fromARGB(
+                                                        255, 170, 221, 112),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10)),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 270,
+                                              height: 40,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 8.0),
+                                                child: TextFormField(
+                                                  controller:
+                                                      option.roadDistrict,
+                                                  keyboardType: TextInputType
+                                                      .streetAddress,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(height: 10),
+                                      // CEP name
+                                      const Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10.0),
+                                        child: Text('CEP'),
+                                      ),
+                                      const SizedBox(height: 10),
+                                      // CEP form
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0),
+                                        child: Stack(
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 7.0),
+                                              child: Container(
+                                                width: 270,
+                                                height: 40,
+                                                decoration: BoxDecoration(
+                                                    color: const Color.fromARGB(
+                                                        255, 170, 221, 112),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10)),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 270,
+                                              height: 40,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 8.0),
+                                                child: TextFormField(
+                                                  controller: option.roadCEP,
+                                                  keyboardType:
+                                                      TextInputType.number,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(height: 10),
+                                      // Contact name
+                                      const Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10.0),
+                                        child: Text('Número'),
+                                      ),
+                                      const SizedBox(height: 10),
+                                      // Contact form
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0),
+                                        child: Stack(
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 7.0),
+                                              child: Container(
+                                                width: 270,
+                                                height: 40,
+                                                decoration: BoxDecoration(
+                                                    color: const Color.fromARGB(
+                                                        255, 170, 221, 112),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10)),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 270,
+                                              height: 40,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 8.0),
+                                                child: TextFormField(
+                                                  controller:
+                                                      option.roadContact,
+                                                  keyboardType:
+                                                      TextInputType.number,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(height: 10),
+                                      // Upload
+                                      Container(
+                                        alignment: Alignment.center,
+                                        width: 290,
+                                        child: ElevatedButton(
+                                            onPressed: () async {
+                                              //incorrect road
+                                              if (option.roadName.text.length <=
+                                                  5) {
+                                                showDialog(
+                                                    context: context,
+                                                    builder: (context) {
+                                                      return AlertDialog(
+                                                        title:
+                                                            const Text('Ops'),
+                                                        content: const Text(
+                                                            'O nome da sua rua pode estar errado'),
+                                                        actions: [
+                                                          ElevatedButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    context),
+                                                            child: const Text(
+                                                                'OK'),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    });
+                                                return;
+                                              }
+                                              //incorrect number
+                                              if (option.roadNumber.text ==
+                                                  '') {
+                                                showDialog(
+                                                    context: context,
+                                                    builder: (context) {
+                                                      return AlertDialog(
+                                                        title:
+                                                            const Text('Ops'),
+                                                        content: const Text(
+                                                            'Você precisa preencher o campo Número'),
+                                                        actions: [
+                                                          ElevatedButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    context),
+                                                            child: const Text(
+                                                                'OK'),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    });
+                                                return;
+                                              }
+                                              //incorrect state
+                                              if (option
+                                                      .roadState.text.length <=
+                                                  1) {
+                                                showDialog(
+                                                    context: context,
+                                                    builder: (context) {
+                                                      return AlertDialog(
+                                                        title:
+                                                            const Text('Ops'),
+                                                        content: const Text(
+                                                            'Você precisa preencher corretamente o estado'),
+                                                        actions: [
+                                                          ElevatedButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    context),
+                                                            child: const Text(
+                                                                'OK'),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    });
+                                                return;
+                                              }
+                                              //incorrect district
+                                              if (option.roadDistrict.text
+                                                      .length <=
+                                                  1) {
+                                                showDialog(
+                                                    context: context,
+                                                    builder: (context) {
+                                                      return AlertDialog(
+                                                        title:
+                                                            const Text('Ops'),
+                                                        content: const Text(
+                                                            'Você precisa preencher corretamento o Bairro'),
+                                                        actions: [
+                                                          ElevatedButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    context),
+                                                            child: const Text(
+                                                                'OK'),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    });
+                                                return;
+                                              }
+                                              //incorrect CEP
+                                              if (option.roadCEP.text.length <
+                                                      8 ||
+                                                  option.roadCEP.text.length >
+                                                      8) {
+                                                showDialog(
+                                                    context: context,
+                                                    builder: (context) {
+                                                      return AlertDialog(
+                                                        title:
+                                                            const Text('Ops'),
+                                                        content: const Text(
+                                                            'CEP precisa ter 8 digitos e apenas números'),
+                                                        actions: [
+                                                          ElevatedButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    context),
+                                                            child: const Text(
+                                                                'OK'),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    });
+                                                return;
+                                              }
+                                              //incorrect contact
+                                              if (option.roadContact.text
+                                                          .length <
+                                                      10 ||
+                                                  option.roadContact.text
+                                                          .length >
+                                                      11) {
+                                                showDialog(
+                                                    context: context,
+                                                    builder: (context) {
+                                                      return AlertDialog(
+                                                        title:
+                                                            const Text('Ops'),
+                                                        content: const Text(
+                                                            'O numero é inválido'),
+                                                        actions: [
+                                                          ElevatedButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    context),
+                                                            child: const Text(
+                                                                'OK'),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    });
+                                                return;
+                                              }
+                                              Navigator.pop(context);
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return const AlertDialog(
+                                                      title: Text('Carregando'),
+                                                      content: FittedBox(
+                                                        child: SizedBox(
+                                                            width: 100,
+                                                            height: 100,
+                                                            child:
+                                                                CircularProgressIndicator()),
+                                                      ),
+                                                    );
+                                                  });
+                                              await addNewLocation({
+                                                "roadName":
+                                                    option.roadName.text,
+                                                "houseNumber":
+                                                    option.roadNumber.text,
+                                                "state": option.roadState.text,
+                                                "district":
+                                                    option.roadDistrict.text,
+                                                "CEP": option.roadCEP.text,
+                                                "contactNumber":
+                                                    option.roadContact.text
+                                              });
+                                            },
+                                            child: const Text('Enviar')),
+                                      ),
+                                      const SizedBox(height: 10),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         );
@@ -242,6 +661,7 @@ class _DeliveryLocationState extends State<DeliveryLocation> {
                   builder: (context, future) {
                     if (future.hasData) {
                       return ListView.builder(
+                        reverse: true,
                         shrinkWrap: true,
                         itemCount: future.data!.length,
                         itemBuilder: (context, i) {

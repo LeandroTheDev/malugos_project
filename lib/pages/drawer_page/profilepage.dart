@@ -193,7 +193,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         height: 50,
                         child: TextButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, '/deliverylocation');
+                            Navigator.pushNamed(context, '/details');
                           },
                           //"Detalhes"
                           child: Container(

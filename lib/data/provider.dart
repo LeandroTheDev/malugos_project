@@ -16,8 +16,8 @@ class Options with ChangeNotifier {
   String get username => _username;
   String get email => _email;
   String get password => _password;
-  dynamic get emailLogin => _emailLogin;
-  dynamic get passwordLogin => _passwordLogin;
+  TextEditingController get emailLogin => _emailLogin;
+  TextEditingController get passwordLogin => _passwordLogin;
   int get id => _id;
   bool get rememberLogin => _rememberLogin;
   bool get credentials => _credentials;
@@ -103,11 +103,23 @@ class Options with ChangeNotifier {
   bool _notifications = false;
   bool _isLoading = false;
   String _sort = '';
+  TextEditingController _roadName = TextEditingController();
+  TextEditingController _roadNumber = TextEditingController();
+  TextEditingController _roadState = TextEditingController();
+  TextEditingController _roadDistrict = TextEditingController();
+  TextEditingController _roadCEP = TextEditingController();
+  TextEditingController _roadContact = TextEditingController();
 
   bool get descMinimized => _descMinimized;
   bool get notifications => _notifications;
   bool get isLoading => _isLoading;
   String get sort => _sort;
+  TextEditingController get roadName => _roadName;
+  TextEditingController get roadNumber => _roadNumber;
+  TextEditingController get roadState => _roadState;
+  TextEditingController get roadDistrict => _roadDistrict;
+  TextEditingController get roadCEP => _roadCEP;
+  TextEditingController get roadContact => _roadContact;
 
   void changeDescMinimaztion() {
     _descMinimized = !descMinimized;
@@ -127,6 +139,36 @@ class Options with ChangeNotifier {
   void changeSort(sort) {
     _sort = sort;
     notifyListeners();
+  }
+
+  TextEditingController changeRoadName(TextEditingController value) {
+    _roadName = value;
+    return _roadName;
+  }
+
+  TextEditingController changeRoadNumber(TextEditingController value) {
+    _roadNumber = value;
+    return _roadNumber;
+  }
+
+  TextEditingController changeRoadState(TextEditingController value) {
+    _roadState = value;
+    return _roadState;
+  }
+
+  TextEditingController changeRoadDistrict(TextEditingController value) {
+    _roadDistrict = value;
+    return _roadDistrict;
+  }
+
+  TextEditingController changeRoadCEP(TextEditingController value) {
+    _roadCEP = value;
+    return _roadCEP;
+  }
+
+  TextEditingController changeRoadContact(TextEditingController value) {
+    _roadContact = value;
+    return _roadContact;
   }
 }
 
