@@ -109,9 +109,13 @@ class DrawerShop extends StatelessWidget {
                         child: FittedBox(
                           child: Row(
                             children: [
-                              SizedBox(
+                              Container(
                                 width: screenSize.width * 0.16,
                                 height: screenSize.height * 0.1,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    color: Colors.white),
+                                padding: const EdgeInsets.all(3),
                                 child:
                                     Image.network(option.cartItems[i].imageURL),
                               ),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:malugos_project/components/drawer.dart';
 import 'package:malugos_project/components/drawershop.dart';
 import 'package:malugos_project/components/productitem_h.dart';
+import 'package:malugos_project/components/productitem_search.dart';
 import 'package:malugos_project/components/productitem_show.dart';
 import 'package:malugos_project/data/productsdata.dart';
 import 'package:mysql1/mysql1.dart';
@@ -19,6 +20,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    final searchText = TextEditingController();
     //Connect to the database and push Products Info
     Future pushProducts([id]) async {
       //Estabilish connection
@@ -150,6 +152,60 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            const SizedBox(height: 30),
+            //Search button
+            Stack(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 7.0),
+                  child: Container(
+                    width: screenSize.width * 0.73,
+                    height: 40,
+                    decoration: BoxDecoration(
+                        color: Colors.lightGreen,
+                        borderRadius: BorderRadius.circular(10)),
+                  ),
+                ),
+                SizedBox(
+                  height: 40,
+                  width: screenSize.width * 0.75,
+                  child: FittedBox(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.only(top: 5),
+                          width: screenSize.width * 0.75,
+                          height: 50,
+                          child: TextFormField(
+                            controller: searchText,
+                            style: const TextStyle(fontSize: 27),
+                            keyboardType: TextInputType.streetAddress,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 15),
+                          child: SizedBox(
+                            width: screenSize.width * 0.20,
+                            child: IconButton(
+                              icon: const Icon(Icons.search),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ProductItemSearch(),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
             const SizedBox(height: 30),
             //"Destaques"
             TextButton(

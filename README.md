@@ -17,6 +17,7 @@ Observation: this is a brazilian company, so the applications will be all in "po
 - shared_preferences: ^2.0.15
 - auto_size_text: ^3.0.0
 - url_launcher: ^6.1.7
+- stripe_payment: ^1.1.4
 
 # How does it work?
 
