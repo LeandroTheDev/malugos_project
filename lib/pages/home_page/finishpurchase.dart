@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:malugos_project/components/productitem_show.dart';
 import 'package:provider/provider.dart';
 
@@ -181,13 +182,65 @@ class FinishPurchase extends StatelessWidget {
                     );
                   }),
               const SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text('Finalizar Compra'),
+              //Finish Purchase button
+              SizedBox(
+                width: screenSize.width * 0.5,
+                height: screenSize.height * 0.1,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/paymentpage');
+                  },
+                  child: const AutoSizeText(
+                    minFontSize: 5,
+                    maxFontSize: 30,
+                    'Escolher Pagamento',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
               ),
               const SizedBox(height: 10),
             ],
           ),
         ));
+  }
+}
+
+class PaymentPage extends StatelessWidget {
+  const PaymentPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Metodo de compra'),
+      ),
+      body: Center(
+        child: Container(
+          width: screenSize.width * 0.9,
+          height: screenSize.height * 0.9,
+          decoration: BoxDecoration(
+            color: Colors.lightGreen,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const Text('Cartão'),
+                  CardFormField(
+                    controller: CardFormEditController(),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

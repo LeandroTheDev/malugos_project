@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:malugos_project/data/mysqldata.dart';
 import 'package:malugos_project/data/provider.dart';
 import 'package:malugos_project/pages/authpage.dart';
 import 'package:malugos_project/pages/authremember.dart';
@@ -21,6 +23,8 @@ import 'package:provider/provider.dart';
 Future main() async {
   //Loads the configurations
   WidgetsFlutterBinding.ensureInitialized();
+  Stripe.publishableKey =
+      'pk_live_51MFJv1FxdtyBnlAXresWRrKid8jvOKJc2VkUm5LGtjORilwz4dS8l9DOVC1J0GsyIapM5fXxOgBZOrwXiC5Ouyg000uSKS15PU';
   await UserPreferences.init();
 
   runApp(
@@ -63,6 +67,7 @@ class MyApp extends StatelessWidget {
         '/history': (context) => const History(),
         '/deliverylocation': (context) => const DeliveryLocation(),
         '/details': (context) => const DetailsPage(),
+        '/paymentpage': (context) => const PaymentPage(),
       },
       home: const MyHomePage(),
     );
