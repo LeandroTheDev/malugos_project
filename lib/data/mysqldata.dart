@@ -61,7 +61,7 @@ class MySqlData {
 
   //Returns the products
   static Future pushProducts({
-    id,
+    id = 1,
     bool isPromo = false,
     bool isMostSell = false,
     bool isHorizontal = false,
