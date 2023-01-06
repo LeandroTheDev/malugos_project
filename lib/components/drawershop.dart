@@ -124,8 +124,14 @@ class DrawerShop extends StatelessWidget {
                                 padding: const EdgeInsets.only(left: 10.0),
                                 child: Column(
                                   children: [
-                                    Text(option.cartItems[i].name),
-                                    Text(option.cartItems[i].price.toString()),
+                                    SizedBox(
+                                      height: 40,
+                                      width: 90,
+                                      child: Text(
+                                        option.cartItems[i].name,
+                                        maxLines: 2,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
