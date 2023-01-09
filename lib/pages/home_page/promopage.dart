@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:malugos_project/components/productitem_show.dart';
-import '../../components/productitem_v.dart';
+import '../../components/productitem_list.dart';
 import '../../data/mysqldata.dart';
 
-//Feature Page
 class PromoPage extends StatefulWidget {
   const PromoPage({super.key});
 
@@ -14,9 +13,6 @@ class PromoPage extends StatefulWidget {
 class _PromoPageState extends State<PromoPage> {
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
-    final screenSizeHeight = screenSize.height - kBottomNavigationBarHeight;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Promoções'),

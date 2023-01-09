@@ -1,13 +1,9 @@
-import 'dart:async';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:malugos_project/components/drawer.dart';
-import 'package:malugos_project/components/drawershop.dart';
-import 'package:malugos_project/components/productitem_h.dart';
+import 'package:malugos_project/components/productitem_list.dart';
 import 'package:malugos_project/components/productitem_search.dart';
 import 'package:malugos_project/components/productitem_show.dart';
-import 'package:malugos_project/data/productsdata.dart';
-import 'package:mysql1/mysql1.dart';
 import '../data/mysqldata.dart';
 
 class HomePage extends StatefulWidget {
@@ -21,100 +17,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final searchText = TextEditingController();
-    //Connect to the database and push Products Info
-    Future pushProducts([id]) async {
-      //Estabilish connection
-      final mysql = await MySqlConnection.connect(
-        ConnectionSettings(
-          host: MySqlData.adress,
-          port: MySqlData.port,
-          user: MySqlData.username,
-          db: MySqlData.data,
-          password: MySqlData.password,
-        ),
-      );
-      //Pick lenght of table products
-      int lenght = await MySqlData.featureLenghtH(id);
-      List<Product> data = [];
-      for (id; id <= lenght; id++) {
-        //Take the informations from database
-        dynamic name =
-            await mysql.query('select name from products where id = ?', [id]);
-        name = name.toString().replaceFirst('(Fields: {name: ', '');
-        name = name.substring(0, name.length - 2);
-        dynamic price =
-            await mysql.query('select price from products where id = ?', [id]);
-        price = price.toString().replaceFirst('(Fields: {price: ', '');
-        price = price.substring(0, price.length - 2);
-        price = double.parse(price);
-        dynamic imageURL = await mysql
-            .query('select imageURL from products where id = ?', [id]);
-        imageURL = imageURL.toString().replaceFirst('(Fields: {imageURL: ', '');
-        imageURL = imageURL.substring(0, imageURL.length - 2);
-        dynamic description = await mysql
-            .query('select description from products where id = ?', [id]);
-        description =
-            description.toString().replaceFirst('(Fields: {description: ', '');
-        description = description.substring(0, description.length - 2);
-        dynamic nameFull = await mysql
-            .query('select nameFULL from products where id = ?', [id]);
-        nameFull = nameFull.toString().replaceFirst('(Fields: {nameFULL: ', '');
-        nameFull = nameFull.substring(0, nameFull.length - 2);
-        dynamic productURL = await mysql
-            .query('select linkURL from products where id = ?', [id]);
-        productURL =
-            productURL.toString().replaceFirst('(Fields: {linkURL: ', '');
-        productURL = productURL.substring(0, productURL.length - 2);
-        //Repass the informations into variable
-        Product productInfo = Product(
-          id: id,
-          name: name,
-          description: description,
-          price: price,
-          imageURL: imageURL,
-          nameFull: nameFull,
-          productURL: productURL,
-        );
-        //Add informations into list
-        data.add(productInfo);
-      }
-      await mysql.close();
-      return data;
-    }
-
-    //Connect to the database and push Images url
-    Future pushImages() async {
-      //Debug
-      List<String> imageURL = [];
-      //Estabilish connection
-      final mysql = await MySqlConnection.connect(
-        ConnectionSettings(
-          host: MySqlData.adress,
-          port: MySqlData.port,
-          user: MySqlData.username,
-          db: MySqlData.data,
-          password: MySqlData.password,
-        ),
-      );
-      int i = 1;
-      while (true) {
-        dynamic imageURLDB =
-            await mysql.query('select imageURL from images where id = ?', [i]);
-        imageURLDB =
-            imageURLDB.toString().replaceFirst('(Fields: {imageURL: ', '');
-        imageURLDB = imageURLDB.substring(0, imageURLDB.length - 2);
-        if (imageURLDB == '') {
-          break;
-        }
-        if (i >= 10) {
-          break;
-        }
-        imageURL.add(imageURLDB);
-        i++;
-      }
-      await mysql.close();
-      return imageURL;
-    }
 
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(
@@ -248,7 +150,7 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 30),
             //Features Horizontal View
             FutureBuilder(
-              future: pushProducts(1),
+              future: MySqlData.pushProducts(id: 1, isHorizontal: true),
               builder: (BuildContext context, future) {
                 if (future.data == null) {
                   return const Padding(
@@ -347,7 +249,7 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 30),
             //Images
             FutureBuilder(
-                future: pushImages(),
+                future: MySqlData.pushImages(),
                 builder: (context, future) {
                   if (future.data == null) {
                     return const CircularProgressIndicator();

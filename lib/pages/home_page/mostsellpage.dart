@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:malugos_project/components/productitem_show.dart';
-import '../../components/productitem_v.dart';
+import '../../components/productitem_list.dart';
 import '../../data/mysqldata.dart';
 
 //Feature Page
@@ -14,9 +14,6 @@ class MostSellPage extends StatefulWidget {
 class _MostSellPageState extends State<MostSellPage> {
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
-    final screenSizeHeight = screenSize.height - kBottomNavigationBarHeight;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Mais Vendidos'),

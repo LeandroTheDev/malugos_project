@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:malugos_project/components/productitem_show.dart';
 import 'package:malugos_project/data/productsdata.dart';
-
 import '../data/mysqldata.dart';
 
 class ProductItemSearch extends StatelessWidget {

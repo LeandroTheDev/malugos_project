@@ -343,4 +343,38 @@ class MySqlData {
     await mysql.close();
     return data;
   }
+
+  //Push carrousel images
+  static Future pushImages() async {
+    //Debug
+    List<String> imageURL = [];
+    //Estabilish connection
+    final mysql = await MySqlConnection.connect(
+      ConnectionSettings(
+        host: MySqlData.adress,
+        port: MySqlData.port,
+        user: MySqlData.username,
+        db: MySqlData.data,
+        password: MySqlData.password,
+      ),
+    );
+    int i = 1;
+    while (true) {
+      dynamic imageURLDB =
+          await mysql.query('select imageURL from images where id = ?', [i]);
+      imageURLDB =
+          imageURLDB.toString().replaceFirst('(Fields: {imageURL: ', '');
+      imageURLDB = imageURLDB.substring(0, imageURLDB.length - 2);
+      if (imageURLDB == '') {
+        break;
+      }
+      if (i >= 10) {
+        break;
+      }
+      imageURL.add(imageURLDB);
+      i++;
+    }
+    await mysql.close();
+    return imageURL;
+  }
 }

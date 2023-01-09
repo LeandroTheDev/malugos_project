@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:malugos_project/components/productitem_show.dart';
 import 'package:malugos_project/data/productsdata.dart';
 import 'package:mysql1/mysql1.dart';
-import '../../components/productitem_v.dart';
+import '../../components/productitem_list.dart';
 import '../../data/mysqldata.dart';
 
 //Feature Page
@@ -16,9 +16,6 @@ class FeaturePage extends StatefulWidget {
 class _FeaturePageState extends State<FeaturePage> {
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
-    final screenSizeHeight = screenSize.height - kBottomNavigationBarHeight;
-
     //Connection to the database and push products
     Future pushProducts([id]) async {
       //Estabilish connection

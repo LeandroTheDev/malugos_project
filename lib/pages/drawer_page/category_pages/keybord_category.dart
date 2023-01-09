@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:malugos_project/components/productitem_show.dart';
-import 'package:malugos_project/components/productitem_v.dart';
 import 'package:malugos_project/data/mysqldata.dart';
+
+import '../../../components/productitem_list.dart';
 
 class KeybordCategory extends StatelessWidget {
   const KeybordCategory({super.key});

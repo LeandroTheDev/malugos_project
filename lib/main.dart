@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:malugos_project/data/mysqldata.dart';
 import 'package:malugos_project/data/provider.dart';
 import 'package:malugos_project/pages/authpage.dart';
 import 'package:malugos_project/pages/authremember.dart';
@@ -51,6 +50,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color.fromARGB(255, 24, 24, 24),
         primarySwatch: Colors.lightGreen,
       ),
+      //Routes
       routes: {
         '/authpage': (context) => const AuthPage(),
         '/homepage': (context) => const HomePage(),
